@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/7.0.0/normalize.min.css">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link rel="stylesheet" href="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.css" integrity="sha384-exe4Ak6B0EoJI0ogGxjJ8rn+RN3ftPnEQrGwX59KTCl5ybGzvHGKjhPKk/KC3abb" crossorigin="anonymous">
+	<link rel="icon" type="image/png" sizes="192x192" href="/img/khantribute_-logo_blue_192x192.png">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/css/style.min.css">
+</head>
+
+<body class="mdc-typography">
+	<header class="mdc-toolbar mdc-toolbar--fixed">
+		<div class="mdc-toolbar__row">
+			<section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+				<a href="#" class="material-icons mdc-toolbar__menu-icon">menu</a>
+			</section>
+
+			<section class="mdc-toolbar__section">
+				<span class="mdc-toolbar__title">Khantribute_</span>
+			</section>
+
+			<section class="mdc-toolbar__section mdc-toolbar__section--align-end">
+				<a href="https://khantribute.typeform.com/to/PFOg8I" class="material-icons mdc-toolbar__icon">message-alert</a>
+			</section>
+
+		</div>
+	</header>
+
+	<main>
+		<div class="mdc-toolbar-fixed-adjust"></div>
+
+		<section class="hero">
+
+			<div id="container" class="mdc-card mdc-card--stroked demo-card">
+
+				<div id="progressbar" role="progressbar" class="mdc-linear-progress">
+					<div class="mdc-linear-progress__buffering-dots"></div>
+					<div class="mdc-linear-progress__buffer"></div>
+					<div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
+						<span class="mdc-linear-progress__bar-inner"></span>
+					</div>
+					<div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
+						<span class="mdc-linear-progress__bar-inner"></span>
+					</div>
+				</div>
+
+				<!-- <div class="card-article-group-heading mdc-typography--subheading2">Proofreading</div>
+
+				<hr class="mdc-list-divider"> -->
+
+				<div class="card-article" style="--mdc-ripple-fg-size:208.8px; --mdc-ripple-fg-scale:1.79298;">
+					<h2 class="card-article__title mdc-typography--headline">Original</h2>
+					<p id="source-text" class="card-article__snippet mdc-typography--body1"></p>
+				</div>
+
+				<hr class="mdc-list-divider">
+
+				<div class="card-article" style="--mdc-ripple-fg-size:208.8px; --mdc-ripple-fg-scale:1.82372;">
+					<h2 class="card-article__title mdc-typography--headline">Translation</h2>
+					<p id="target-text" class="card-article__snippet mdc-typography--body1"></p>
+				</div>
+
+				<hr class="mdc-list-divider">
+
+				<div class="mdc-card__actions mdc-card__actions--full-bleed">
+					<button id="rejectBtn" class="mdc-button">
+						<i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Reject">thumb_down</i>
+					</button>
+					<button id="skipBtn" class="mdc-button">
+						<i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Skip">skip_next</i>
+					</button>
+					<button id="approveBtn" class="mdc-button">
+						<i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Approve">thumb_up</i>
+					</button>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<aside id="help-dialog" class="mdc-dialog" role="alertdialog">
+		<div class="mdc-dialog__surface">
+			<header class="mdc-dialog__header">
+				<h2 id="my-mdc-dialog-label" class="mdc-dialog__header__title">
+					How to  use Khantribute.
+			    </h2>
+			</header>
+			<section id="my-mdc-dialog-description" class="mdc-dialog__body mdc-dialog__body--scrollable">
+				<div>
+					<p>Think of it as “Tinder - for proofreading”</p>
+					<ul>
+						<li>Swipe right if translation is good. Swipe left if Bad…</li>
+						<li>Skip to next without voting by pressing the skip button</li>
+					</ul>
+					<p>You can also press the thumbs up/ down buttons to vote.</p>
+
+					<p>This is a test version so please click <i class="material-icons mdc-toolbar__icon">message_alert</i> and send us feedback so we can make the app better</p>
+
+					<h4>How it works:</h4>
+					<p>
+						Every up or down-vote you and other users make on a sentence( string) is added up.<br> Every string gets a score based on total votes. Strings with high scores will likely be ready to proofread, and lows scores, probably need editing.<br> This will
+						make proofreading a lot faster. And ultimately get Khan Academy to more people around the world, faster…<br> Thank you for helping us all deliver <br>
+						<em>“A FREE worldclass education, to anyone anywhere”</em>
+					</p>
+				</div>
+			</section>
+			<footer class="mdc-dialog__footer">
+				<!-- TODO: checkbox "never show again" -->
+				<button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Got it</button>
+			</footer>
+		</div>
+		<div class="mdc-dialog__backdrop"></div>
+	</aside>
+
+
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.js" integrity="sha384-OMvkZ24ANLwviZR2lVq8ujbE/bUO8IR1FdBrKLQBI14Gq5Xp/lksIccGkmKL8m+h" crossorigin="anonymous"></script>
+	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
+	<script src="/js/khantribute.js"></script>
+	<script>
+		window.mdc.autoInit();
+
+		$(document).ready(function() {
+			setTimeout(Khantribute, 500);
+		});
+	</script>
+</body>
+
+</html>

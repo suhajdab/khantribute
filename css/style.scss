@@ -1,0 +1,52 @@
+body,
+html {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+.hero {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 24px;
+}
+
+.card-article-group-heading {
+    color: rgba(0, 0, 0, 0.54);
+    padding: 8px 16px;
+}
+
+.card-article {}
+
+.card-article__title {
+    margin: 0;
+    background: #ccc;
+    text-align: center;
+}
+
+.card-article__snippet {
+    padding: 2em;
+}
+
+#container {
+    .mdc-card__actions {
+        justify-content: space-evenly;
+
+        button {
+            flex-grow: 1;
+        }
+    }
+}
+
+#help-dialog {
+    .mdc-dialog__surface {
+        height: calc(100% - 30px);
+    }
+
+    .mdc-dialog__body {
+        max-height: none;
+        overflow-x: hidden;
+    }
+}
