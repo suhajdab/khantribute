@@ -6,6 +6,11 @@
 	TODO: Remove snowman from katex rendering
 	TODO: Analytics
  */
+import $ from "jquery"
+import Cookies from "js-cookie"
+import Hammer from "hammerjs"
+import {MDCDialog} from "@material/dialog"
+import {MDCLinearProgress} from "@material/linear-progress"
 
 var Khantribute = (function() {
     var apiDomain = "https://kagame-sv.localgrid.de",
@@ -64,10 +69,10 @@ var Khantribute = (function() {
     function init() {
         var progressbarEl = document.getElementById('progressbar'),
             dialogEl = document.getElementById('help-dialog'),
-            welcomeDialog = new mdc.dialog.MDCDialog(dialogEl);
+            welcomeDialog = new MDCDialog(dialogEl);
 
         $card = $('#container');
-        progressbar = mdc.linearProgress.MDCLinearProgress.attachTo(progressbarEl);
+        progressbar = MDCLinearProgress.attachTo(progressbarEl);
         welcomeDialog.show();
 
         if (Cookies.get("kaid") === undefined) {
@@ -202,3 +207,7 @@ var Khantribute = (function() {
 
     return init;
 })();
+
+$(document).ready(function() {
+    setTimeout(Khantribute, 500);
+});
