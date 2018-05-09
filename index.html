@@ -110,6 +110,22 @@
 			</section>
 			<footer class="mdc-dialog__footer">
 				<!-- TODO: checkbox "never show again" -->
+				<div class="mdc-form-field mdc-form-field--align-end">
+					<div class="mdc-checkbox">
+						<input type="checkbox" id="disable-welcome-chb" class="mdc-checkbox__native-control" />
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+						        <path class="mdc-checkbox__checkmark-path"
+						              fill="none"
+						              stroke="white"
+						              d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+
+					<label for="disable-welcome-chb">Don't show again</label>
+				</div>
 				<button type="button" class="mdc-button mdc-dialog__footer__button mdc-dialog__footer__button--accept">Got it</button>
 			</footer>
 		</div>
@@ -119,6 +135,7 @@
 
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 	<script src="https://cdn.jsdelivr.net/npm/js-cookie@2/src/js.cookie.min.js"></script>
+	<script src="https://kevincox-cdn.appspot.com/url-1.0.4.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/hammer.js/2.0.8/hammer.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/KaTeX/0.9.0-alpha2/katex.min.js" integrity="sha384-OMvkZ24ANLwviZR2lVq8ujbE/bUO8IR1FdBrKLQBI14Gq5Xp/lksIccGkmKL8m+h" crossorigin="anonymous"></script>
 	<script src="https://unpkg.com/material-components-web@latest/dist/material-components-web.min.js"></script>
@@ -127,7 +144,7 @@
 		window.mdc.autoInit();
 
 		$(document).ready(function() {
-			setTimeout(Khantribute, 500);
+			setTimeout(Khantribute, 2000);
 		});
 	</script>
 </body>

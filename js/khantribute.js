@@ -1,5 +1,4 @@
 /*
-	TODO: COOKIE & hiding for welcome dialog
 	TODO: prohibit rapid submits
 	TODO: reset scroll-y after submit
 	TODO: feedback on drag indicating outcome (ex: right => green, left => red)
@@ -9,6 +8,7 @@
 
 var Khantribute = (function() {
     var apiDomain = "https://kagame-sv.localgrid.de",
+		testing = false,
         cid = null,
         string_id = null,
         strings = [],
@@ -45,6 +45,8 @@ var Khantribute = (function() {
     }
 
     function transformString(str) {
+		// remove 'snowmen' interactive elements
+		str = str.replace(/\[\[☃(.*?)\]\]/g, '');
         // match string frgments between $ for katex
         str = str.replace(/\$(.*?)\$/g, generateKatex);
         // replace newline characters
@@ -62,15 +64,15 @@ var Khantribute = (function() {
     }
 
     function init() {
-        var progressbarEl = document.getElementById('progressbar'),
-            dialogEl = document.getElementById('help-dialog'),
-            welcomeDialog = new mdc.dialog.MDCDialog(dialogEl);
+        var progressbarEl = document.getElementById('progressbar');
 
         $card = $('#container');
         progressbar = mdc.linearProgress.MDCLinearProgress.attachTo(progressbarEl);
-        welcomeDialog.show();
+        if (Cookies.get('disable-welcome') == undefined) {
+			setupWelcomeDialog();
+		}
 
-        if (Cookies.get("kaid") === undefined) {
+        if (Cookies.get('kaid') === undefined) {
             cid = ("" + Math.random()).slice(2) // long number
             Cookies.set("kaid", cid);
             Cookies.set("count", 0);
@@ -87,6 +89,19 @@ var Khantribute = (function() {
         $('#skipBtn').on('click', onSkip);
         $('#rejectBtn').on('click', onReject);
     }
+
+	function setupWelcomeDialog() {
+		var dialogEl = document.getElementById('help-dialog'),
+			welcomeDialog = new mdc.dialog.MDCDialog(dialogEl);
+
+		welcomeDialog.show();
+		welcomeDialog.listen('MDCDialog:accept', function() {
+		  console.log('accepted');
+		  if (this.querySelector('input[type="checkbox"]').checked) {
+			  Cookies.set('disable-welcome', 1);
+		  }
+	  });
+	}
 
     function resetCard() {
         applyTransition(0, 0, null, 0.3);
@@ -146,6 +161,7 @@ var Khantribute = (function() {
 
     function submit(score) {
         // Send result to server
+        if (testing) return;
         json = {
             "client": cid,
             "string": string_id,
@@ -189,15 +205,35 @@ var Khantribute = (function() {
         nextString();
     }
 
+	function getApiUrl(offset) {
+		var local_url = 'strings.json?',
+		api_url = apiDomain + "/api/strings?offset=",
+		offset_override = url.parse(location.href).get['offset_override'];
+
+		return (testing ? local_url : api_url) + (offset_override ? offset_override : offset);
+	}
 
     function fetchStrings() {
-        $.getJSON(apiDomain + "/api/strings?offset=" + count, function(data) {
+		$.getJSON(getApiUrl(count), function onGetJSONSuccess(data) {
             strings = data;
             total = strings.length;
             if (string_id == null) {
                 nextString();
             }
         })
+		.fail(function onGetJSONFail(){
+			console.error('onGetJSONFail', arguments);
+			if (!testing) {
+				alert('Application is unable to fetch translation strings from the server. It will instead enter demo mode and load locally stored test data for testing purposes. Your responses will not be stored in demo mode.\nPlease reload the application to attempt connecting to server again and resume proofreading.');
+				testing = true;
+				fetchStrings();
+			} else {
+				throw('Fatal error. Local data unreachable.');
+			}
+		})
+		.always(function onGetJSONAlways(){
+			console.info('onGetJSONAlways', arguments);
+		});
     }
 
     return init;
