@@ -5,6 +5,11 @@
 	TODO: Remove snowman from katex rendering
 	TODO: Analytics
  */
+import $ from "jquery"
+import Cookies from "js-cookie"
+import Hammer from "hammerjs"
+import {MDCDialog} from "@material/dialog"
+import {MDCLinearProgress} from "@material/linear-progress"
 
 var Khantribute = (function() {
     var apiDomain = "https://kagame-sv.localgrid.de",
@@ -67,7 +72,7 @@ var Khantribute = (function() {
         var progressbarEl = document.getElementById('progressbar');
 
         $card = $('#container');
-        progressbar = mdc.linearProgress.MDCLinearProgress.attachTo(progressbarEl);
+        progressbar = MDCLinearProgress.attachTo(progressbarEl);
         if (Cookies.get('disable-welcome') == undefined) {
 			setupWelcomeDialog();
 		}
@@ -92,7 +97,7 @@ var Khantribute = (function() {
 
 	function setupWelcomeDialog() {
 		var dialogEl = document.getElementById('help-dialog'),
-			welcomeDialog = new mdc.dialog.MDCDialog(dialogEl);
+			welcomeDialog = new MDCDialog(dialogEl);
 
 		welcomeDialog.show();
 		welcomeDialog.listen('MDCDialog:accept', function() {
@@ -162,7 +167,7 @@ var Khantribute = (function() {
     function submit(score) {
         // Send result to server
         if (testing) return;
-        json = {
+        let json = {
             "client": cid,
             "string": string_id,
             "score": score
@@ -206,10 +211,10 @@ var Khantribute = (function() {
     }
 
 	function getApiUrl(offset) {
-		var local_url = 'strings.json?',
+		var local_url = "strings.json?",
 		api_url = apiDomain + "/api/strings?offset=",
-		offset_override = url.parse(location.href).get['offset_override'];
-
+		offset_override = (new URL(location.href)).searchParams.get("offset_override");
+        
 		return (testing ? local_url : api_url) + (offset_override ? offset_override : offset);
 	}
 
@@ -235,6 +240,10 @@ var Khantribute = (function() {
 			console.info('onGetJSONAlways', arguments);
 		});
     }
-
+    
     return init;
 })();
+
+$(document).ready(function() {
+    setTimeout(Khantribute, 2000);
+});
