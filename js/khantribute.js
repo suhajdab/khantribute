@@ -68,7 +68,7 @@ var Khantribute = (function() {
         var match = item.replace(/\$/g, '');
         // remove escape backslash
         match = match.replace(/\\\\/g, "\\");
-
+        console.log(match);
         return katex.renderToString(match);
     }
 
@@ -94,8 +94,8 @@ var Khantribute = (function() {
 
         // Fetch first set of strings
         fetchStrings();
-
-        (new Hammer($card[0])).on("panleft panright panend panup pandown", onPan);
+        
+        (new Hammer($card[0])).on("panleft panright panend", onPan);
         $('#approveBtn').on('click', onApprove);
         $('#skipBtn').on('click', onSkip);
         $('#rejectBtn').on('click', onReject);
