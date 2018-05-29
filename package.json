@@ -20,7 +20,9 @@
   "devDependencies": {
     "@material/button": "^0.35.0",
     "@material/card": "^0.35.0",
+    "@material/checkbox": "^0.35.0",
     "@material/dialog": "^0.35.0",
+    "@material/form-field": "^0.35.0",
     "@material/linear-progress": "^0.35.0",
     "@material/list": "^0.35.0",
     "@material/toolbar": "^0.35.0",

@@ -10,6 +10,8 @@ import Cookies from "js-cookie"
 import Hammer from "hammerjs"
 import {MDCDialog} from "@material/dialog"
 import {MDCLinearProgress} from "@material/linear-progress"
+import {MDCFormField} from '@material/form-field';
+import {MDCCheckbox} from '@material/checkbox';
 
 var Khantribute = (function() {
     var apiDomain = "https://kagame-sv.localgrid.de",
@@ -22,6 +24,8 @@ var Khantribute = (function() {
         blocked = false, // Ignore events, e.g. when animation is still ongoing
         animationOngoing,
         progressbar,
+        hideCheckbox,
+        hideForm,
         welcomeDialog,
         $card,
         cardDeltaX = 0;
@@ -73,6 +77,8 @@ var Khantribute = (function() {
 
         $card = $('#container');
         progressbar = MDCLinearProgress.attachTo(progressbarEl);
+        hideForm = new MDCFormField(document.getElementById("hide-form"));
+        hideCheckbox = new MDCCheckbox(document.getElementById("hide-checkbox"));
         if (Cookies.get('disable-welcome') == undefined) {
 			setupWelcomeDialog();
 		}
