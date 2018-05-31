@@ -10,8 +10,9 @@ import Cookies from "js-cookie"
 import Hammer from "hammerjs"
 import {MDCDialog} from "@material/dialog"
 import {MDCLinearProgress} from "@material/linear-progress"
-import {MDCFormField} from '@material/form-field';
-import {MDCCheckbox} from '@material/checkbox';
+import {MDCFormField} from "@material/form-field";
+import {MDCCheckbox} from "@material/checkbox";
+import {MDCSnackbar} from "@material/snackbar";
 
 var Khantribute = (function() {
     var apiDomain = "https://kagame-sv.localgrid.de",
@@ -27,7 +28,8 @@ var Khantribute = (function() {
         hideCheckbox,
         hideForm,
         welcomeDialog,
-        $card;
+        $card,
+        feedbackSnackbar;
     const newCardAnimLen = 0.5;
 
     function nextString() {
@@ -78,6 +80,7 @@ var Khantribute = (function() {
         progressbar = MDCLinearProgress.attachTo(progressbarEl);
         hideForm = new MDCFormField(document.getElementById("hide-form"));
         hideCheckbox = new MDCCheckbox(document.getElementById("hide-checkbox"));
+        feedbackSnackbar = new MDCSnackbar(document.getElementById("feedback-snackbar"));
         if (Cookies.get('disable-welcome') == undefined) {
 			setupWelcomeDialog();
 		}
@@ -189,8 +192,16 @@ var Khantribute = (function() {
                 applyTransition($("body").width() * yfactor + ev.deltaX, 0, 0, newCardAnimLen);
                 setTimeout(function() {
                     if (ev.deltaX > 100) {
+                        feedbackSnackbar.show({
+                            message: "Approved translation",
+                            timeout: 1000
+                        });
                         submit(1);
                     } else {
+                        feedbackSnackbar.show({
+                            message: "Rejected translation",
+                            timeout: 1000
+                        });
                         submit(-1);
                     }
                     nextString();
