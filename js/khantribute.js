@@ -27,9 +27,8 @@ var Khantribute = (function() {
         hideCheckbox,
         hideForm,
         welcomeDialog,
-        $card,
-        cardDeltaX = 0;
-
+        $card;
+    const newCardAnimLen = 0.5;
 
     function nextString() {
         if (strings == null || strings.length == 0) {
@@ -115,58 +114,95 @@ var Khantribute = (function() {
 	}
 
     function resetCard() {
-        applyTransition(0, 0, null, 0.3);
+        setTransform(0, -$("body").height() * 3, 0);
         setTimeout(function() {
-            applyTransition(null, null, null, 0);
+            applyTransition(0, 0, 0, newCardAnimLen);
         }, 300);
+    }
+    
+    function setTransform(x, y, deg) {
+        var style = {};
+        
+        style.transition = "";
+        
+        if (x != null) {
+            style.transform = `translate3d(${x}px, ${y}px, 0)`;
+        }
+        
+        if (deg != null) {
+            style.transform += ` rotate(${deg}deg)`;
+        }
+        
+        $card.css(style);
     }
 
     function applyTransition(x, y, deg, dur) {
         var style = {};
-        style.transform = '';
+        
+        style.transition = "";
 
-        if (x !== null) {
-            style.transform = 'translate3d(' + x + 'px, ' + y + 'px, 0)';
+        if (x != null) {
+            style.transform = `translate3d(${x}px, ${y}px, 0)`;
         }
 
-        if (deg !== null) {
-            style.transform += ' rotate(' + deg + 'deg)';
+        if (deg != null) {
+            style.transform += ` rotate(${deg}deg)`;
         }
 
-        if (dur !== null) {
-            style.transition = '-webkit-transform ' + dur + 's';
+        if (dur != null) {
+            style.transition = `transform ${dur}s`;
         }
 
         $card.css(style);
     }
 
     function onPan(ev) {
-        var yfactor = ev.deltaX >= 0 ? -1 : 1,
+        var yfactor = ev.deltaX >= 0 ? 1 : -1,
             resultEvent = {};
-
-        if (ev.type === 'panend') {
+        
+        if (ev.deltaX > 0) {
+            $(".khantribute-approve-bar").width(ev.deltaX);
+            $(".khantribute-deny-bar").width(0);
+        } else if (ev.deltaX < 0) {
+            $(".khantribute-deny-bar").width(-ev.deltaX);
+            $(".khantribute-approve-bar").width(0);
+        }
+        
+        if (ev.deltaX > 100) {
+            $("#approveBtn").addClass("active");
+        } else if (ev.deltaX < -100) {
+            $("#rejectBtn").addClass("active");
+        } else {
+            $("#approveBtn").removeClass("active");
+            $("#rejectBtn").removeClass("active");
+        }
+        
+        if (ev.type === "panend") {
+            $(".khantribute-approve-bar").animate({width: 0}, newCardAnimLen * 1000);
+            $(".khantribute-deny-bar").animate({width: 0}, newCardAnimLen * 1000);
+            setTimeout(() => {
+                $("#approveBtn").removeClass("active");
+                $("#rejectBtn").removeClass("active");
+            }, 250);
             // released
-            if (cardDeltaX > 100 || cardDeltaX < -100) {
-                applyTransition((5 * cardDeltaX), (yfactor * 1.5 * cardDeltaX), ((-5 * cardDeltaX) / 10), 0.5);
+            if (ev.deltaX > 100 || ev.deltaX < -100) {
+                applyTransition($("body").width() * yfactor + ev.deltaX, 0, 0, newCardAnimLen);
                 setTimeout(function() {
-                    if (cardDeltaX > 100) {
+                    if (ev.deltaX > 100) {
                         submit(1);
                     } else {
                         submit(-1);
                     }
                     nextString();
                     resetCard();
-                }, 500);
+                }, newCardAnimLen * 1000);
             } else {
-                resetCard();
+                setTransform(null, null, null, null);
             }
-        } else if (ev.type === 'panup' || ev.type === 'pandown') {
-            // No vertical scroll
-            ev.preventDefault();
         } else {
             // dragging
-            cardDeltaX = ev.deltaX;
-            applyTransition(cardDeltaX, (yfactor * 0.15 * cardDeltaX), (-1 * cardDeltaX) / 10);
+            console.log(ev.deltaX);
+            setTransform(ev.deltaX, 0);
         }
     }
 
@@ -179,11 +215,11 @@ var Khantribute = (function() {
             "score": score
         }
         console.log("Submitting", json);
-        $.post(apiDomain + "/api/submit", json, function(data) {
-            $("#rank").text(data.rank);
-            count = data.count;
-            $("#count").text(data.count);
-        })
+        // $.post(apiDomain + "/api/submit", json, function(data) {
+        //     $("#rank").text(data.rank);
+        //     count = data.count;
+        //     $("#count").text(data.count);
+        // })
         // Update count
         count++;
         Cookies.set("count", count);
@@ -212,8 +248,12 @@ var Khantribute = (function() {
     }
 
     function onSkip() {
-        submit(0);
-        nextString();
+        applyTransition(0, $("body").height(), 0, newCardAnimLen);
+        setTimeout(() => {
+            submit(0);
+            nextString();
+            resetCard();
+        }, newCardAnimLen * 1000);
     }
 
 	function getApiUrl(offset) {

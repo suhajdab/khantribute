@@ -9,12 +9,24 @@
 @import "@material/dialog/mdc-dialog";
 @import "@material/form-field/mdc-form-field";
 @import "@material/checkbox/mdc-checkbox";
+@import "@material/elevation/mdc-elevation";
 
 body,
 html {
     margin: 0;
     padding: 0;
     height: 100%;
+    overflow-x: hidden;
+}
+
+main {
+    position: absolute;
+    top: 64px;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    overflow-y: scroll;
+    overflow-x: hidden;
 }
 
 .hero {
@@ -60,5 +72,90 @@ html {
     .mdc-dialog__body {
         max-height: none;
         overflow-x: hidden;
+    }
+}
+
+.khantribute-status {
+    
+    .khantribute-status-controls {
+        position: absolute;
+        bottom: 4em;
+        left: 50%;
+        width: 11em;
+        transform: translateX(-50%);
+        padding: 1em 0;
+        z-index: 1000;
+        
+        .khantribute-control-button {
+            border: none;
+            position: absolute;
+            padding: 0;
+            width: 3em;
+            height: 3em;
+            border-radius: 50%;
+            color: white;
+            @include mdc-elevation(6);
+            transition: mdc-elevation-transition-value();
+            will-change: $mdc-elevation-property, left, width, height;
+            transition: left 0.25s, width 0.25s, height 0.25s;
+            z-index: 1000;
+        }
+        
+        .khantribute-control-button.active {
+            width: 6em;
+            height: 6em;
+            top: -0.75em;
+            z-index: 1001
+        }
+        
+        .khantribute-control-button:hover {
+            @include mdc-elevation(12);
+        }
+        
+        #rejectBtn {
+            background: #F44336;
+        }
+        
+        #rejectBtn.active {
+            left: -1.5em;
+        }
+        
+        #skipBtn {
+            background: #2196F3;
+            left: 4em;
+        }
+        
+        #skipBtn.active {
+            left: 2.5em;
+        }
+        
+        #approveBtn {
+            background: #4CAF50;
+            left: 8em;
+        }
+        
+        #approveBtn.active {
+            left: 6.5em;
+        }
+        
+        *:focus {
+            outline: none;
+        }
+    }
+    
+    .khantribute-approve-bar {
+        position: absolute;
+        top: 64px;
+        bottom: 0;
+        right: 0;
+        background: linear-gradient(to right, rgba(76,175,79,0) 0%, rgba(76,175,79,1) 50%);
+    }
+    
+    .khantribute-deny-bar {
+        position: absolute;
+        top: 64px;
+        bottom: 0;
+        left: 0;
+        background: linear-gradient(to left, rgba(244,66,54,0) 0%, rgba(244,66,54,1) 50%);
     }
 }

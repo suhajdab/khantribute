@@ -28,10 +28,24 @@
 
 		</div>
 	</header>
-
+	
+	<div class="khantribute-status">
+		<div class="khantribute-approve-bar"></div>
+		<div class="khantribute-deny-bar"></div>
+		<div class="khantribute-status-controls">
+			<button id="rejectBtn" class="khantribute-control-button">
+				<i class="material-icons" tabindex="0" role="button" title="Reject">thumb_down</i>
+			</button>
+			<button id="skipBtn" class="khantribute-control-button">
+				<i class="material-icons" tabindex="0" role="button" title="Skip">skip_next</i>
+			</button>
+			<button id="approveBtn" class="khantribute-control-button">
+				<i class="material-icons" tabindex="0" role="button" title="Approve">thumb_up</i>
+			</button>
+		</div>
+	</div>
+	
 	<main>
-		<div class="mdc-toolbar-fixed-adjust"></div>
-
 		<section class="hero">
 
 			<div id="container" class="mdc-card mdc-card--stroked demo-card">
@@ -61,20 +75,6 @@
 				<div class="card-article" style="--mdc-ripple-fg-size:208.8px; --mdc-ripple-fg-scale:1.82372;">
 					<h2 class="card-article__title mdc-typography--headline">Original</h2>
 					<p id="source-text" class="card-article__snippet mdc-typography--body1"></p>
-				</div>
-
-				<hr class="mdc-list-divider">
-
-				<div class="mdc-card__actions mdc-card__actions--full-bleed">
-					<button id="rejectBtn" class="mdc-button">
-						<i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Reject">thumb_down</i>
-					</button>
-					<button id="skipBtn" class="mdc-button">
-						<i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Skip">skip_next</i>
-					</button>
-					<button id="approveBtn" class="mdc-button">
-						<i class="material-icons mdc-card__action mdc-card__action--icon" tabindex="0" role="button" title="Approve">thumb_up</i>
-					</button>
 				</div>
 			</div>
 		</section>
