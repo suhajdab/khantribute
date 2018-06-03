@@ -13,6 +13,7 @@ import {MDCLinearProgress} from "@material/linear-progress"
 import {MDCFormField} from "@material/form-field";
 import {MDCCheckbox} from "@material/checkbox";
 import {MDCSnackbar} from "@material/snackbar";
+import marked from "marked";
 
 var Khantribute = (function() {
     var apiDomain = "https://kagame-sv.localgrid.de",
@@ -55,21 +56,32 @@ var Khantribute = (function() {
     }
 
     function transformString(str) {
+        console.log(str);
 		// remove 'snowmen' interactive elements
 		str = str.replace(/\[\[☃(.*?)\]\]/g, '');
         // match string frgments between $ for katex
-        str = str.replace(/\$(.*?)\$/g, generateKatex);
+        str = str.replace(/\$(.*?)\$/g, (_, item) => katex.renderToString(
+            item
+                .replace("\\\\", "\\")
+                .replace(/\\+?([a-z0-9]+)/ig, "\\$1")
+        ));
         // replace newline characters
         str = str.replace(/\\n/g, "<br />");
+        // Handle markdown
+        str = str.replace(/(?:__(.*?)__)|(?:\*\*(.*?)\*\*)/g, "<b>$1$2</b>");
+        str = str.replace(/(?:_(.*?)_)|(?:\*(.*?)\*)/g, "<i>$1$2</i>");
+        str = str.replace(/\~\~(.*?)\~\~/, "<del>$1</del>");
+        str = str.replace(/\!\[(.*?)\]\((.*?)\)/g, "<img src='$2' alt='$1'>");
+        str = str.replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$1'>$2</a>");
+        
         return str;
     }
 
-    function generateKatex(item) {
+    function generateKatex(_, item) {
         // remove bounding $
-        var match = item.replace(/\$/g, '');
         // remove escape backslash
-        match = match.replace(/\\\\/g, "\\");
-        console.log(match);
+        // match = match.replace(/\\\\/g, "\\");
+        // console.log(match);
         return katex.renderToString(match);
     }
 
