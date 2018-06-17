@@ -77,7 +77,6 @@ main {
 }
 
 .khantribute-status {
-    
     .khantribute-status-controls {
         position: absolute;
         bottom: 4em;
@@ -159,6 +158,10 @@ main {
         left: 0;
         background: linear-gradient(to left, rgba(244,66,54,0) 0%, rgba(244,66,54,1) 50%);
     }
+}
+
+#help-dialog {
+    z-index: 1001;
 }
 
 .mdc-snackbar {

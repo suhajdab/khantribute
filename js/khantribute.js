@@ -9,11 +9,10 @@ import $ from "jquery"
 import Cookies from "js-cookie"
 import Hammer from "hammerjs"
 import {MDCDialog} from "@material/dialog"
-import {MDCLinearProgress} from "@material/linear-progress"
+// import {MDCLinearProgress} from "@material/linear-progress"
 import {MDCFormField} from "@material/form-field";
 import {MDCCheckbox} from "@material/checkbox";
 import {MDCSnackbar} from "@material/snackbar";
-import marked from "marked";
 
 var Khantribute = (function() {
     var apiDomain = "https://kagame-sv.localgrid.de",
@@ -25,7 +24,7 @@ var Khantribute = (function() {
         total = 0,
         blocked = false, // Ignore events, e.g. when animation is still ongoing
         animationOngoing,
-        progressbar,
+        // progressbar,
         hideCheckbox,
         hideForm,
         welcomeDialog,
@@ -39,10 +38,17 @@ var Khantribute = (function() {
             fetchStrings();
             return;
         }
-
-        displayStrings(strings[0]);
-        strings = strings.slice(1);
-        console.log(strings.length + " strings left");
+        
+        let display = strings.shift();
+        
+        try {
+            displayStrings(display);
+            console.log(strings.length + " strings left");
+        } catch (e) {
+            console.error(e);
+            console.log("Display failed. Attempting to display next string.");
+            nextString();
+        }
     }
 
     function displayStrings(currentString) {
@@ -51,7 +57,7 @@ var Khantribute = (function() {
 
         $("#source-text").html(source);
         $("#target-text").html(target);
-        progressbar.progress = (total - strings.length) / total;
+        // progressbar.progress = (total - strings.length) / total;
         string_id = currentString.id;
     }
 
@@ -86,10 +92,10 @@ var Khantribute = (function() {
     }
 
     function init() {
-        var progressbarEl = document.getElementById('progressbar');
+        // var progressbarEl = document.getElementById('progressbar');
 
         $card = $('#container');
-        progressbar = MDCLinearProgress.attachTo(progressbarEl);
+        // progressbar = MDCLinearProgress.attachTo(progressbarEl);
         hideForm = new MDCFormField(document.getElementById("hide-form"));
         hideCheckbox = new MDCCheckbox(document.getElementById("hide-checkbox"));
         feedbackSnackbar = new MDCSnackbar(document.getElementById("feedback-snackbar"));
@@ -204,16 +210,8 @@ var Khantribute = (function() {
                 applyTransition($("body").width() * yfactor + ev.deltaX, 0, 0, newCardAnimLen);
                 setTimeout(function() {
                     if (ev.deltaX > 100) {
-                        feedbackSnackbar.show({
-                            message: "Approved translation",
-                            timeout: 1000
-                        });
                         submit(1);
                     } else {
-                        feedbackSnackbar.show({
-                            message: "Rejected translation",
-                            timeout: 1000
-                        });
                         submit(-1);
                     }
                     nextString();
@@ -261,12 +259,30 @@ var Khantribute = (function() {
     }
 
     function onApprove() {
-        submit(1);
+        applyTransition($("body").width(), 0, 0, newCardAnimLen);
+        setTimeout(() => {
+            submit(1);
+            nextString();
+            resetCard();
+        }, newCardAnimLen * 1000);
+        feedbackSnackbar.show({
+            message: "Approved translation",
+            timeout: 1000
+        });
         nextString();
     }
 
     function onReject() {
-        submit(-1);
+        applyTransition(-$("body").width(), 0, 0, newCardAnimLen);
+        setTimeout(() => {
+            submit(-1);
+            nextString();
+            resetCard();
+        }, newCardAnimLen * 1000);
+        feedbackSnackbar.show({
+            message: "Rejected translation",
+            timeout: 1000
+        });
         nextString();
     }
 
