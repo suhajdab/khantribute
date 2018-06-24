@@ -17,7 +17,7 @@ import {MDCSnackbar} from "@material/snackbar";
 var Khantribute = (function() {
     var apiPrefix = (window.location.hostname.includes && window.location.hostname.includes('localhost'))
         ? "http://localhost:9921/apiv3/khantribute" : "https://katc.localgrid.de/apiv3/khantribute";
-    var lang = 'de';
+    var lang = 'sv-SE'; // TODO selection menu + default from browser lang.
     var nickname = ''; //TODO
 	var testing = false,
         cid = null,
