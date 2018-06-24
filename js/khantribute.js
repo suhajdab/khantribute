@@ -15,8 +15,12 @@ import {MDCCheckbox} from "@material/checkbox";
 import {MDCSnackbar} from "@material/snackbar";
 
 var Khantribute = (function() {
-    var apiDomain = "https://kagame-sv.localgrid.de",
-		testing = false,
+    /*var apiPrefix = (window.location.hostname.includes && window.location.hostname.includes('localhost'))
+        ? "http://localhost:9921/apiv3/khantribute" : "https://katc.localgrid.de/apiv3/khantribute";*/
+    var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
+    var lang = 'sv-SE'; // TODO selection menu + default from browser lang.
+    var nickname = ''; //TODO
+	var testing = false,
         cid = null,
         string_id = null,
         strings = [],
@@ -106,11 +110,11 @@ var Khantribute = (function() {
         if (Cookies.get('kaid') === undefined) {
             cid = ("" + Math.random()).slice(2) // long number
             Cookies.set("kaid", cid);
-            Cookies.set("count", 0);
         }
         cid = Cookies.get("kaid");
-        count = Cookies.get("count");
         // $("#count").text(count);
+        // Load count & nickname given cid
+        loadUserInfo();
 
         // Fetch first set of strings
         fetchStrings();
@@ -227,20 +231,45 @@ var Khantribute = (function() {
         }
     }
 
+    function loadUserInfo() {
+        $.getJSON(apiPrefix + "/user/" + lang, {client: cid}, function(data) {
+            count = data.num_votes;
+            nickname = nickname || data.nickname; 
+        });
+    }
+
+    // TODO implement nickname in UI
+    function setNickname(newNickname) {
+        $.getJSON(apiPrefix + "/set-nickname/" + lang,
+            {client: cid, nickname: newNickname}, function(data) {
+            // TODO handle errors?
+        });
+    }
+
+    // TODO implement UI
+    function getLeaderboard(newNickname) {
+        $.getJSON(apiPrefix + "/leaderboard/" + lang,
+            {client: cid}, function(data) {
+            // TODO handle JSON
+        });
+    }
+
+
     function submit(score) {
         // Send result to server
         if (testing) return;
-        let json = {
+        let params = {
             "client": cid,
-            "string": string_id,
-            "score": score
+            "stringid": string_id,
+            "score": score,
+            "nickname": nickname
         }
-        console.log("Submitting", json);
-        // $.post(apiDomain + "/api/submit", json, function(data) {
-        //     $("#rank").text(data.rank);
-        //     count = data.count;
-        //     $("#count").text(data.count);
-        // })
+        console.log("Submitting", params);
+        $.getJSON(apiPrefix + "/submit/" + lang, params, function(data) {
+            $("#rank").text(data.rank);
+            count += 1;
+            $("#count").text(count);
+        })
         // Update count
         count++;
         Cookies.set("count", count);
@@ -295,16 +324,8 @@ var Khantribute = (function() {
         }, newCardAnimLen * 1000);
     }
 
-	function getApiUrl(offset) {
-		var local_url = "strings.json?",
-		api_url = apiDomain + "/api/strings?offset=",
-		offset_override = (new URL(location.href)).searchParams.get("offset_override");
-        
-		return (testing ? local_url : api_url) + (offset_override ? offset_override : offset);
-	}
-
     function fetchStrings() {
-		$.getJSON(getApiUrl(count), function onGetJSONSuccess(data) {
+		$.getJSON(apiPrefix + "/strings/" + lang, function onGetJSONSuccess(data) {
             strings = data;
             total = strings.length;
             if (string_id == null) {

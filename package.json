@@ -4,7 +4,8 @@
   "description": "** khantribute **",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node_modules/.bin/webpack-dev-server"
   },
   "repository": {
     "type": "git",
@@ -45,7 +46,8 @@
     "style-loader": "^0.21.0",
     "uglifyjs-webpack-plugin": "^1.2.5",
     "webpack": "^4.7.0",
-    "webpack-cli": "^2.1.2"
+    "webpack-cli": "^2.1.2",
+    "webpack-dev-server": "^3.1.4"
   },
   "dependencies": {}
 }
