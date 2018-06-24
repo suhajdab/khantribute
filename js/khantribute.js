@@ -231,11 +231,28 @@ var Khantribute = (function() {
     }
 
     function loadUserInfo() {
-        $.getJSON(apiPrefix + "/user/" + lang, function(data) {
+        $.getJSON(apiPrefix + "/user/" + lang, {client: cid}, function(data) {
             count = data.num_votes;
             nickname = nickname || data.nickname; 
         });
     }
+
+    // TODO implement nickname in UI
+    function setNickname(newNickname) {
+        $.getJSON(apiPrefix + "/set-nickname/" + lang,
+            {client: cid, nickname: newNickname}, function(data) {
+            // TODO handle errors?
+        });
+    }
+
+    // TODO implement UI
+    function getLeaderboard(newNickname) {
+        $.getJSON(apiPrefix + "/leaderboard/" + lang,
+            {client: cid}, function(data) {
+            // TODO handle JSON
+        });
+    }
+
 
     function submit(score) {
         // Send result to server
@@ -306,16 +323,8 @@ var Khantribute = (function() {
         }, newCardAnimLen * 1000);
     }
 
-	function getStringsAPIUrl(offset) {
-		var local_url = "strings.json?",
-		api_url = apiPrefix + "/strings/" + lang + "?offset=",
-		offset_override = (new URL(location.href)).searchParams.get("offset_override");
-        
-		return (testing ? local_url : api_url) + (offset_override ? offset_override : offset);
-	}
-
     function fetchStrings() {
-		$.getJSON(getStringsAPIUrl(count), function onGetJSONSuccess(data) {
+		$.getJSON(apiPrefix + "/strings/" + lang, function onGetJSONSuccess(data) {
             strings = data;
             total = strings.length;
             if (string_id == null) {
