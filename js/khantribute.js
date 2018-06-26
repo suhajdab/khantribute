@@ -6,7 +6,6 @@
 	TODO: Analytics
  */
 import $ from "jquery"
-import Cookies from "js-cookie"
 import Hammer from "hammerjs"
 import {MDCDialog} from "@material/dialog"
 // import {MDCLinearProgress} from "@material/linear-progress"
@@ -103,15 +102,15 @@ var Khantribute = (function() {
         hideForm = new MDCFormField(document.getElementById("hide-form"));
         hideCheckbox = new MDCCheckbox(document.getElementById("hide-checkbox"));
         feedbackSnackbar = new MDCSnackbar(document.getElementById("feedback-snackbar"));
-        if (Cookies.get('disable-welcome') == undefined) {
+        if (localStorage.getItem("disable-welcome") == null) {
 			setupWelcomeDialog();
 		}
 
-        if (Cookies.get('kaid') === undefined) {
+        if (!localStorage.getItem("kaid")) {
             cid = ("" + Math.random()).slice(2) // long number
-            Cookies.set("kaid", cid);
+            localStorage.setItem("kaid", cid);
         }
-        cid = Cookies.get("kaid");
+        cid = localStorage.getItem("kaid");
         // $("#count").text(count);
         // Load count & nickname given cid
         loadUserInfo();
@@ -133,7 +132,7 @@ var Khantribute = (function() {
 		welcomeDialog.listen('MDCDialog:accept', function() {
 		  console.log('accepted');
 		  if (this.querySelector('input[type="checkbox"]').checked) {
-			  Cookies.set('disable-welcome', 1);
+			  localStorage.setItem('disable-welcome', 1);
 		  }
 	  });
 	}
@@ -272,7 +271,7 @@ var Khantribute = (function() {
         })
         // Update count
         count++;
-        Cookies.set("count", count);
+        localStorage.setItem("count", count);
         $("#count").text(count);
     }
 

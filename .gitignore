@@ -5,3 +5,7 @@ node_modules/*
 strings.json
 
 css/style.min.css
+
+.vscode/
+
+package-lock.json
