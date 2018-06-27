@@ -8,17 +8,14 @@
 import $ from "jquery"
 import Hammer from "hammerjs"
 import {MDCDialog} from "@material/dialog"
-// import {MDCLinearProgress} from "@material/linear-progress"
 import {MDCFormField} from "@material/form-field";
 import {MDCCheckbox} from "@material/checkbox";
 import {MDCSnackbar} from "@material/snackbar";
 
 var Khantribute = (function() {
-    /*var apiPrefix = (window.location.hostname.includes && window.location.hostname.includes('localhost'))
-        ? "http://localhost:9921/apiv3/khantribute" : "https://katc.localgrid.de/apiv3/khantribute";*/
     var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
-    var lang = 'sv-SE'; // TODO selection menu + default from browser lang.
-    var nickname = ''; //TODO
+    var lang = "sv-SE"; // TODO selection menu + default from browser lang.
+    var nickname = ""; //TODO
 	var testing = false,
         cid = null,
         string_id = null,
@@ -27,7 +24,6 @@ var Khantribute = (function() {
         total = 0,
         blocked = false, // Ignore events, e.g. when animation is still ongoing
         animationOngoing,
-        // progressbar,
         hideCheckbox,
         hideForm,
         welcomeDialog,
@@ -95,10 +91,7 @@ var Khantribute = (function() {
     }
 
     function init() {
-        // var progressbarEl = document.getElementById('progressbar');
-
         $card = $('#container');
-        // progressbar = MDCLinearProgress.attachTo(progressbarEl);
         hideForm = new MDCFormField(document.getElementById("hide-form"));
         hideCheckbox = new MDCCheckbox(document.getElementById("hide-checkbox"));
         feedbackSnackbar = new MDCSnackbar(document.getElementById("feedback-snackbar"));
@@ -220,12 +213,11 @@ var Khantribute = (function() {
                     nextString();
                     resetCard();
                 }, newCardAnimLen * 1000);
-            } else {
-                setTransform(null, null, null, null);
             }
+                // 10 pixels per second
+                applyTransition(0, 0, 0, ev.deltaX / 100);
         } else {
             // dragging
-            console.log(ev.deltaX);
             setTransform(ev.deltaX, 0);
         }
     }

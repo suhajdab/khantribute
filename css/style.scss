@@ -17,7 +17,7 @@ html {
     margin: 0;
     padding: 0;
     height: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 main {
@@ -26,7 +26,7 @@ main {
     left: 0;
     bottom: 0;
     right: 0;
-    overflow-y: scroll;
+    overflow-y: auto;
     overflow-x: hidden;
 }
 
@@ -42,8 +42,6 @@ main {
     color: rgba(0, 0, 0, 0.54);
     padding: 8px 16px;
 }
-
-.card-article {}
 
 .card-article__title {
     margin: 0;
@@ -66,13 +64,10 @@ main {
 }
 
 #help-dialog {
-    .mdc-dialog__surface {
-        height: calc(100% - 30px);
-    }
-
     .mdc-dialog__body {
-        max-height: none;
-        overflow-x: hidden;
+        max-height: 75vh;
+        min-height: 15vh;
+        overflow-y: auto;
     }
 }
 
@@ -85,32 +80,6 @@ main {
         transform: translateX(-50%);
         padding: 1em 0;
         z-index: 1000;
-        
-        .khantribute-control-button {
-            border: none;
-            position: absolute;
-            padding: 0;
-            width: 3em;
-            height: 3em;
-            border-radius: 50%;
-            color: white;
-            @include mdc-elevation(6);
-            transition: mdc-elevation-transition-value();
-            will-change: $mdc-elevation-property, left, width, height;
-            transition: left 0.25s, width 0.25s, height 0.25s;
-            z-index: 1000;
-        }
-        
-        .khantribute-control-button.active {
-            width: 6em;
-            height: 6em;
-            top: -0.75em;
-            z-index: 1001
-        }
-        
-        .khantribute-control-button:hover {
-            @include mdc-elevation(12);
-        }
         
         #rejectBtn {
             background: #F44336;
@@ -137,10 +106,6 @@ main {
         #approveBtn.active {
             left: 6.5em;
         }
-        
-        *:focus {
-            outline: none;
-        }
     }
     
     .khantribute-approve-bar {
@@ -158,6 +123,55 @@ main {
         left: 0;
         background: linear-gradient(to left, rgba(244,66,54,0) 0%, rgba(244,66,54,1) 50%);
     }
+}
+
+.khantribute-control-button {
+    border: none;
+    position: absolute;
+    padding: 0;
+    width: 3em;
+    height: 3em;
+    border-radius: 50%;
+    color: white;
+    @include mdc-elevation(6);
+    transition: mdc-elevation-transition-value();
+    will-change: $mdc-elevation-property, left, width, height;
+    transition: left 0.25s, width 0.25s, height 0.25s box-shadow 0.15s;
+    z-index: 1000;
+}
+
+.khantribute-control-button.active {
+    width: 6em;
+    height: 6em;
+    top: -0.75em;
+    z-index: 1001
+}
+
+#feedback-button {
+    background-color: white;
+    color: rgba(0, 0, 0, 0.87);
+    display: block;
+}
+
+*:focus {
+    outline: none;
+}
+
+.khantribute-feedback {
+    position: absolute;
+    bottom: 2em;
+    right: 2em;
+    width: 48px;
+    height: 48px;
+}
+
+.khantribute-control-button:hover {
+    @include mdc-elevation(12);
+}
+
+.khantribute-toolbar {
+    background-color: white;
+    color: black;
 }
 
 #help-dialog {
