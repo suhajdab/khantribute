@@ -6,20 +6,16 @@
 	TODO: Analytics
  */
 import $ from "jquery"
-import Cookies from "js-cookie"
 import Hammer from "hammerjs"
 import {MDCDialog} from "@material/dialog"
-// import {MDCLinearProgress} from "@material/linear-progress"
 import {MDCFormField} from "@material/form-field";
 import {MDCCheckbox} from "@material/checkbox";
 import {MDCSnackbar} from "@material/snackbar";
 
 var Khantribute = (function() {
-    /*var apiPrefix = (window.location.hostname.includes && window.location.hostname.includes('localhost'))
-        ? "http://localhost:9921/apiv3/khantribute" : "https://katc.localgrid.de/apiv3/khantribute";*/
     var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
-    var lang = 'sv-SE'; // TODO selection menu + default from browser lang.
-    var nickname = ''; //TODO
+    var lang = "sv-SE"; // TODO selection menu + default from browser lang.
+    var nickname = ""; //TODO
 	var testing = false,
         cid = null,
         string_id = null,
@@ -28,7 +24,6 @@ var Khantribute = (function() {
         total = 0,
         blocked = false, // Ignore events, e.g. when animation is still ongoing
         animationOngoing,
-        // progressbar,
         hideCheckbox,
         hideForm,
         welcomeDialog,
@@ -96,22 +91,19 @@ var Khantribute = (function() {
     }
 
     function init() {
-        // var progressbarEl = document.getElementById('progressbar');
-
         $card = $('#container');
-        // progressbar = MDCLinearProgress.attachTo(progressbarEl);
         hideForm = new MDCFormField(document.getElementById("hide-form"));
         hideCheckbox = new MDCCheckbox(document.getElementById("hide-checkbox"));
         feedbackSnackbar = new MDCSnackbar(document.getElementById("feedback-snackbar"));
-        if (Cookies.get('disable-welcome') == undefined) {
+        if (localStorage.getItem("disable-welcome") == null) {
 			setupWelcomeDialog();
 		}
 
-        if (Cookies.get('kaid') === undefined) {
+        if (!localStorage.getItem("kaid")) {
             cid = ("" + Math.random()).slice(2) // long number
-            Cookies.set("kaid", cid);
+            localStorage.setItem("kaid", cid);
         }
-        cid = Cookies.get("kaid");
+        cid = localStorage.getItem("kaid");
         // $("#count").text(count);
         // Load count & nickname given cid
         loadUserInfo();
@@ -133,7 +125,7 @@ var Khantribute = (function() {
 		welcomeDialog.listen('MDCDialog:accept', function() {
 		  console.log('accepted');
 		  if (this.querySelector('input[type="checkbox"]').checked) {
-			  Cookies.set('disable-welcome', 1);
+			  localStorage.setItem('disable-welcome', 1);
 		  }
 	  });
 	}
@@ -221,12 +213,11 @@ var Khantribute = (function() {
                     nextString();
                     resetCard();
                 }, newCardAnimLen * 1000);
-            } else {
-                setTransform(null, null, null, null);
             }
+                // 10 pixels per second
+                applyTransition(0, 0, 0, ev.deltaX / 100);
         } else {
             // dragging
-            console.log(ev.deltaX);
             setTransform(ev.deltaX, 0);
         }
     }
@@ -272,7 +263,7 @@ var Khantribute = (function() {
         })
         // Update count
         count++;
-        Cookies.set("count", count);
+        localStorage.setItem("count", count);
         $("#count").text(count);
     }
 

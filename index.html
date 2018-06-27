@@ -9,10 +9,12 @@
 	<link rel="icon" type="image/png" sizes="192x192" href="/img/khantribute_-logo_blue_192x192.png">
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel="stylesheet" href="/dist/khantribute.css">
+
+	<title>Khantribute</title>
 </head>
 
 <body class="mdc-typography">
-	<header class="mdc-toolbar mdc-toolbar--fixed">
+	<header class="mdc-toolbar mdc-toolbar--fixed khantribute-toolbar">
 		<div class="mdc-toolbar__row">
 			<section class="mdc-toolbar__section mdc-toolbar__section--align-start">
 				<a href="#" class="material-icons mdc-toolbar__menu-icon">menu</a>
@@ -22,9 +24,7 @@
 				<span class="mdc-toolbar__title">Khantribute_</span>
 			</section>
 
-			<section class="mdc-toolbar__section mdc-toolbar__section--align-end">
-				<a href="https://khantribute.typeform.com/to/PFOg8I" class="material-icons mdc-toolbar__icon">message-alert</a>
-			</section>
+			<section class="mdc-toolbar__section"></section>
 		</div>
 	</header>
 	
@@ -49,27 +49,17 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="khantribute-feedback">
+		<button class="khantribute-control-button" id="feedback-button">
+			<i class="material-icons" tabindex="0" role="button" title="Send us feedback">comment</i>
+		</button>
+	</div>
 	
 	<main>
 		<section class="hero">
 
 			<div id="container" class="mdc-card mdc-card--stroked demo-card">
-
-				<!-- <div id="progressbar" role="progressbar" class="mdc-linear-progress">
-					<div class="mdc-linear-progress__buffering-dots"></div>
-					<div class="mdc-linear-progress__buffer"></div>
-					<div class="mdc-linear-progress__bar mdc-linear-progress__primary-bar">
-						<span class="mdc-linear-progress__bar-inner"></span>
-					</div>
-					<div class="mdc-linear-progress__bar mdc-linear-progress__secondary-bar">
-						<span class="mdc-linear-progress__bar-inner"></span>
-					</div>
-				</div> -->
-
-				<!-- <div class="card-article-group-heading mdc-typography--subheading2">Proofreading</div>
-
-				<hr class="mdc-list-divider"> -->
-
 				<div class="card-article" style="--mdc-ripple-fg-size:208.8px; --mdc-ripple-fg-scale:1.79298;">
 					<h2 class="card-article__title mdc-typography--headline">Translation</h2>
 					<p id="target-text" class="card-article__snippet mdc-typography--body1"></p>
@@ -101,12 +91,12 @@
 					</ul>
 					<p>You can also press the thumbs up/ down buttons to vote.</p>
 
-					<p>This is a test version so please click <i class="material-icons mdc-toolbar__icon">message_alert</i> and send us feedback so we can make the app better</p>
+					<p>This is a test version so please click the feedback button in the bottom right and help us make the app better</p>
 
 					<h4>How it works:</h4>
 					<p>
-						Every up or down-vote you and other users make on a sentence( string) is added up.<br> Every string gets a score based on total votes. Strings with high scores will likely be ready to proofread, and lows scores, probably need editing.<br> This will
-						make proofreading a lot faster. And ultimately get Khan Academy to more people around the world, faster…<br> Thank you for helping us all deliver <br>
+						Every up or down-vote you and other users make on a sentence (string) is added up.<br> Every string gets a score based on total votes. Strings with high scores will likely be ready to proofread, and lows scores, probably need editing.<br> This will
+						make proofreading a lot faster. And ultimately get Khan Academy to more people around the world, faster.<br> Thank you for helping us all deliver <br>
 						<em>“A FREE worldclass education, to anyone anywhere”</em>
 					</p>
 				</div>
