@@ -13,8 +13,27 @@ import {MDCCheckbox} from "@material/checkbox";
 import {MDCSnackbar} from "@material/snackbar";
 
 var Khantribute = (function() {
+    
+    function findLangFromDomain() {
+        var match = window.location.hostname.match("([^\.]+)\.khantribute\.localgrid\.de")
+        if(match === null) {
+            return 'sv-SE'; // Default
+        } else {
+            return match[1];
+        }
+    }
+    
+    var lang = findLangFromDomain();
+    console.info("Language: ", lang);
+
+    // API prefix for development: Just serve from "main domain"
+    // NOTE: All domains serve identical content. The ONLY DIFFERENCE is the domain!
     var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
-    var lang = "sv-SE"; // TODO selection menu + default from browser lang.
+    if(window.location.hostname.includes(".khantribute.localgrid.de")) {
+        // Default for "production use"
+        apiPrefix = "/apiv3/khantribute";
+    }
+
     var nickname = ""; //TODO
 	var testing = false,
         cid = null,
