@@ -19,7 +19,13 @@ var Khantribute = (function() {
         if(match === null) {
             return 'sv-SE'; // Default
         } else {
-            return match[1];
+            var protoLangcode = match[1]; // "de" or "svse"
+            // we need "sv-SE"
+            if(protoLangcode.length <= 2) {
+                return protoLangcode
+            } else { // "svse", need to convert to "sv-SE"
+                return /* sv */ protoLangcode.slice(0,2) + "-" + protoLangcode.slice(2).toUpperCase();
+            }
         }
     }
     
@@ -30,7 +36,7 @@ var Khantribute = (function() {
     // NOTE: All domains serve identical content. The ONLY DIFFERENCE is the domain!
     var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
     if(window.location.hostname.includes(".khantribute.localgrid.de")) {
-        // Default for "production use"
+        // Default for "production use": Use current domain
         apiPrefix = "/apiv3/khantribute";
     }
 
