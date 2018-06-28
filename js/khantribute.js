@@ -44,9 +44,35 @@ function generatePlaceholderNick() {
 }
 
 var Khantribute = (function() {
+    
+    function findLangFromDomain() {
+        var match = window.location.hostname.match("([^\.]+)\.khantribute\.localgrid\.de")
+        if(match === null) {
+            return 'sv-SE'; // Default
+        } else {
+            var protoLangcode = match[1]; // "de" or "svse"
+            // we need "sv-SE"
+            if(protoLangcode.length <= 2) {
+                return protoLangcode
+            } else { // "svse", need to convert to "sv-SE"
+                return /* sv */ protoLangcode.slice(0,2) + "-" + protoLangcode.slice(2).toUpperCase();
+            }
+        }
+    }
+    
+    var lang = findLangFromDomain();
+    console.info("Language: ", lang);
+
+    // API prefix for development: Just serve from "main domain"
+    // NOTE: All domains serve identical content. The ONLY DIFFERENCE is the domain!
     var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
     var lang = "sv-SE"; // TODO selection menu + default from browser lang.
     var nickname = generatePlaceholderNick();
+    if(window.location.hostname.includes(".khantribute.localgrid.de")) {
+        // Default for "production use": Use current domain
+        apiPrefix = "/apiv3/khantribute";
+    }
+    
 	var testing = false,
         cid = null,
         string_id = null,

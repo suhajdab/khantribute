@@ -10,3 +10,10 @@ npm start
 ```
 
 then goto http://localhost:8080
+
+
+## Packaging for production
+
+```sh
+npm run dist
+```
