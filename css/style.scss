@@ -11,6 +11,7 @@
 @import "@material/checkbox/mdc-checkbox";
 @import "@material/elevation/mdc-elevation";
 @import "@material/snackbar/mdc-snackbar";
+@import "@material/menu/mdc-menu";
 
 body,
 html {
@@ -180,4 +181,44 @@ main {
 
 .mdc-snackbar {
     z-index: 5000
+}
+
+.khantribute-menu-anchor {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    width: 12em;
+    right: 0;
+    transition: opacity 15ms linear;
+
+    .name {
+        width: 100%;
+        display: inline-block;
+        height: 32px;
+        line-height: 32px;
+        padding-left: 1em;
+    }
+
+    .score {
+        display: inline-block;
+        height: 32px;
+        line-height: 32px;
+        width: 30%;
+        padding-left: 1em;
+    }
+
+    .language {
+        display: inline-block;
+        height: 32px;
+        line-height: 32px;
+        padding-left: 1em;
+    }
+
+    &:hover {
+        background: rgba(0, 0, 0, 0.04);
+    }
+
+    &:active {
+        background: rgba(0, 0, 0, 0.16);
+    }
 }

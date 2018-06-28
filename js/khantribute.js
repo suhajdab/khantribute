@@ -11,11 +11,42 @@ import {MDCDialog} from "@material/dialog"
 import {MDCFormField} from "@material/form-field";
 import {MDCCheckbox} from "@material/checkbox";
 import {MDCSnackbar} from "@material/snackbar";
+import {MDCMenu} from "@material/menu";
+
+function generatePlaceholderNick() {
+    let adjectives = [
+        "Happy",
+        "Sad",
+        "Smart",
+        "Tired",
+        "Green",
+        "Purple",
+        "Small",
+        "Large",
+        "Real",
+        "Weird"
+    ];
+
+    let nouns = [
+        "Aardvark",
+        "Buffalo",
+        "Chair",
+        "Dog",
+        "Eagle",
+        "Fountain",
+        "Goat",
+        "Human",
+        "Igloo",
+        "Juniper"
+    ];
+
+    return adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)];
+}
 
 var Khantribute = (function() {
     var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
     var lang = "sv-SE"; // TODO selection menu + default from browser lang.
-    var nickname = ""; //TODO
+    var nickname = generatePlaceholderNick();
 	var testing = false,
         cid = null,
         string_id = null,
@@ -61,7 +92,6 @@ var Khantribute = (function() {
     }
 
     function transformString(str) {
-        console.log(str);
 		// remove 'snowmen' interactive elements
 		str = str.replace(/\[\[☃(.*?)\]\]/g, '');
         // match string frgments between $ for katex
@@ -71,23 +101,15 @@ var Khantribute = (function() {
                 .replace(/\\+?([a-z0-9]+)/ig, "\\$1")
         ));
         // replace newline characters
-        str = str.replace(/\\n/g, "<br />");
+        str = str.replace(/\\n/g, "<br/>");
         // Handle markdown
         str = str.replace(/(?:__(.*?)__)|(?:\*\*(.*?)\*\*)/g, "<b>$1$2</b>");
         str = str.replace(/(?:_(.*?)_)|(?:\*(.*?)\*)/g, "<i>$1$2</i>");
         str = str.replace(/\~\~(.*?)\~\~/, "<del>$1</del>");
-        str = str.replace(/\!\[(.*?)\]\((.*?)\)/g, "<img src='$2' alt='$1'>");
+        str = str.replace(/\!\[(.*?)\]\((.*?)\)/g, /*"<img src='$2' alt='$1'>"*/ "");
         str = str.replace(/\[(.*?)\]\((.*?)\)/g, "<a href='$1'>$2</a>");
         
         return str;
-    }
-
-    function generateKatex(_, item) {
-        // remove bounding $
-        // remove escape backslash
-        // match = match.replace(/\\\\/g, "\\");
-        // console.log(match);
-        return katex.renderToString(match);
     }
 
     function init() {
@@ -98,6 +120,8 @@ var Khantribute = (function() {
         if (localStorage.getItem("disable-welcome") == null) {
 			setupWelcomeDialog();
 		}
+    
+        $("#nickname").text(nickname);
 
         if (!localStorage.getItem("kaid")) {
             cid = ("" + Math.random()).slice(2) // long number
@@ -115,6 +139,15 @@ var Khantribute = (function() {
         $('#approveBtn').on('click', onApprove);
         $('#skipBtn').on('click', onSkip);
         $('#rejectBtn').on('click', onReject);
+
+        let menu = new MDCMenu(document.getElementById("menu"));
+        $("#menu-button").click(function() {
+            menu.open = !menu.open;
+        });
+
+        $("#change-nick").click(function() {
+            setNickname(prompt("Enter your new nickname") || nickname);
+        })
     }
 
 	function setupWelcomeDialog() {
@@ -225,12 +258,17 @@ var Khantribute = (function() {
     function loadUserInfo() {
         $.getJSON(apiPrefix + "/user/" + lang, {client: cid}, function(data) {
             count = data.num_votes;
-            nickname = nickname || data.nickname; 
+            $("#score").text(count);
+            console.log(data);
+            nickname = data.nickname || nickname;
+            $("#nickname").text(nickname);
         });
     }
 
     // TODO implement nickname in UI
     function setNickname(newNickname) {
+        nickname = newNickname;
+        $("#nickname").text(newNickname);
         $.getJSON(apiPrefix + "/set-nickname/" + lang,
             {client: cid, nickname: newNickname}, function(data) {
             // TODO handle errors?
@@ -255,16 +293,12 @@ var Khantribute = (function() {
             "score": score,
             "nickname": nickname
         }
-        console.log("Submitting", params);
+        
         $.getJSON(apiPrefix + "/submit/" + lang, params, function(data) {
             $("#rank").text(data.rank);
-            count += 1;
-            $("#count").text(count);
-        })
-        // Update count
-        count++;
-        localStorage.setItem("count", count);
-        $("#count").text(count);
+            count += Math.abs(score); // If the user skipped, we don't want to award them any points
+            $("#score").text(count);
+        });
     }
 
     function doFade(elem) {
@@ -342,5 +376,5 @@ var Khantribute = (function() {
 })();
 
 $(document).ready(function() {
-    setTimeout(Khantribute, 2000);
+    Khantribute();
 });
