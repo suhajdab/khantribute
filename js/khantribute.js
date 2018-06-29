@@ -48,7 +48,7 @@ var Khantribute = (function() {
     function findLangFromDomain() {
         var match = window.location.hostname.match("([^\.]+)\.khantribute\.localgrid\.de")
         if(match === null) {
-            return 'sv-SE'; // Default
+            return 'zhcn'; // Default
         } else {
             var protoLangcode = match[1]; // "de" or "svse"
             // we need "sv-SE"
@@ -61,12 +61,11 @@ var Khantribute = (function() {
     }
     
     var lang = findLangFromDomain();
-    console.info("Language: ", lang);
+    $("#language").text(lang);
 
     // API prefix for development: Just serve from "main domain"
     // NOTE: All domains serve identical content. The ONLY DIFFERENCE is the domain!
     var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
-    var lang = "sv-SE"; // TODO selection menu + default from browser lang.
     var nickname = generatePlaceholderNick();
     if(window.location.hostname.includes(".khantribute.localgrid.de")) {
         // Default for "production use": Use current domain
@@ -88,7 +87,12 @@ var Khantribute = (function() {
         feedbackSnackbar;
     const newCardAnimLen = 0.5;
 
-    function nextString() {
+    function nextString(first) {
+        if (first && strings.length === 0) {
+            $("main").html("<p class='congrats'>Congrats! There aren't any strings left to translate for this language right now!</p>");
+            return;
+        }
+
         if (strings == null || strings.length == 0) {
             string_id = null;
             fetchStrings();
@@ -159,7 +163,7 @@ var Khantribute = (function() {
         loadUserInfo();
 
         // Fetch first set of strings
-        fetchStrings();
+        fetchStrings(true);
         
         (new Hammer($card[0])).on("panleft panright panend", onPan);
         $('#approveBtn').on('click', onApprove);
@@ -375,12 +379,12 @@ var Khantribute = (function() {
         }, newCardAnimLen * 1000);
     }
 
-    function fetchStrings() {
+    function fetchStrings(first) {
 		$.getJSON(apiPrefix + "/strings/" + lang, function onGetJSONSuccess(data) {
             strings = data;
             total = strings.length;
             if (string_id == null) {
-                nextString();
+                nextString(first);
             }
         })
 		.fail(function onGetJSONFail(){
