@@ -183,7 +183,7 @@ main {
     z-index: 5000
 }
 
-.khantribute-menu-anchor {
+.khantribute-profile-menu-anchor {
     position: absolute;
     top: 0;
     height: 100%;
@@ -203,15 +203,30 @@ main {
         display: inline-block;
         height: 32px;
         line-height: 32px;
-        width: 30%;
+        width: 100%;
         padding-left: 1em;
     }
 
-    .language {
-        display: inline-block;
-        height: 32px;
-        line-height: 32px;
-        padding-left: 1em;
+    &:hover {
+        background: rgba(0, 0, 0, 0.04);
+    }
+
+    &:active {
+        background: rgba(0, 0, 0, 0.16);
+    }
+}
+
+.khantribute-lang-menu-anchor {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    left: 0;
+    transition: opacity 15ms linear;
+    line-height: 64px;
+    padding: 0 1em;
+
+    .khantribute-lang-icon {
+        line-height: 64px;
     }
 
     &:hover {

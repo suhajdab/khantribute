@@ -17,7 +17,17 @@
 	<header class="mdc-toolbar mdc-toolbar--fixed khantribute-toolbar">
 		<div class="mdc-toolbar__row">
 			<section class="mdc-toolbar__section mdc-toolbar__section--align-start">
-				<!-- <a href="#" class="material-icons mdc-toolbar__menu-icon">menu</a> -->
+				<div class="mdc-menu-anchor khantribute-lang-menu-anchor">
+					<div class="khantribute-lang-menu-button" id="lang-menu-button">
+						<i class="material-icons khantribute-lang-icon">language</i>
+						<!-- <span class="language" id="language">sv-SE</span> -->
+					</div>
+					<div class="mdc-menu" id="lang-menu">
+						<ul class="mdc-menu__items mdc-list" role="menu" id="lang-list" aria-hidden="true">
+							
+						</ul>
+					</div>
+				</div>
 			</section>
 
 			<section class="mdc-toolbar__section">
@@ -25,18 +35,17 @@
 			</section>
 
 			<section class="mdc-toolbar__section">
-				<div class="mdc-menu-anchor khantribute-menu-anchor">
+				<div class="mdc-menu-anchor khantribute-profile-menu-anchor">
 					<div class="khantribute-menu-button" id="menu-button">
 						<span class="name" id="nickname"></span>
-						<span class="score" id="score">123</span>
-						<span class="language" id="language">sv-SE</span>
+						<span class="score" id="score"></span>
 					</div>
 					<div class="mdc-menu" id="menu">
 						<ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
 							<li class="mdc-list-item" role="menuitem" id="change-nick">
 								Change Nickname
 							</li>
-							<li class="mdc-list-item" role="menuitem" aria-disabled="true">
+							<li class="mdc-list-item" role="menuitem">
 								Change Language
 							</li>
 							<li class="mdc-list-item" role="menuitem">

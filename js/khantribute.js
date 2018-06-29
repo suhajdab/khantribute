@@ -43,12 +43,116 @@ function generatePlaceholderNick() {
     return adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)];
 }
 
+var langs = [ {
+    "bld" : "es",
+    "name" : "Spanish"
+  }, {
+    "bld" : "pt",
+    "name" : "Portuguese (Brazilian)"
+  }, {
+    "bld" : "pt-pt",
+    "name" : "Portuguese (European)"
+  }, {
+    "bld" : "fr",
+    "name" : "French"
+  }, {
+    "bld" : "tr",
+    "name" : "Turkish"
+  }, {
+    "bld" : "nb",
+    "name" : "Norwegian Bokmål"
+  }, {
+    "bld" : "hi",
+    "name" : "Hindi"
+  }, {
+    "bld" : "id",
+    "name" : "Indonesian"
+  }, {
+    "bld" : "ms",
+    "name" : "Malay"
+  }, {
+    "bld" : "cs",
+    "name" : "Czech"
+  }, {
+    "bld" : "da",
+    "name" : "Danish"
+  }, {
+    "bld" : "de",
+    "name" : "German"
+  }, {
+    "bld" : "xh",
+    "name" : "Xhosa"
+  }, {
+    "bld" : "it",
+    "name" : "Italian"
+  }, {
+    "bld" : "nl",
+    "name" : "Dutch"
+  }, {
+    "bld" : "pl",
+    "name" : "Polish"
+  }, {
+    "bld" : "el",
+    "name" : "Greek"
+  }, {
+    "bld" : "bg",
+    "name" : "Bulgarian"
+  }, {
+    "bld" : "mn",
+    "name" : "Mongolian"
+  }, {
+    "bld" : "ru",
+    "name" : "Russian"
+  }, {
+    "bld" : "sr",
+    "name" : "Serbian"
+  }, {
+    "bld" : "uk",
+    "name" : "Ukranian"
+  }, {
+    "bld" : "hy",
+    "name" : "Armenian"
+  }, {
+    "bld" : "he",
+    "name" : "Hebrew"
+  }, {
+    "bld" : "ur",
+    "name" : "Urdu"
+  }, {
+    "bld" : "ar",
+    "name" : "Arabic"
+  }, {
+    "bld" : "fa",
+    "name" : "Persian (Farsi)"
+  }, {
+    "bld" : "bn",
+    "name" : "Bengali"
+  }, {
+    "bld" : "te",
+    "name" : "Telugu"
+  }, {
+    "bld" : "th",
+    "name" : "Thai"
+  }, {
+    "bld" : "zh-hans",
+    "name" : "Simplified Chinese"
+  }, {
+    "bld" : "ja",
+    "name" : "Japanese"
+  }, {
+    "bld" : "ko",
+    "name" : "Korean"
+  }, {
+    "bld" : "ka",
+    "name" : "Georgian"
+  } ];  
+
 var Khantribute = (function() {
     
     function findLangFromDomain() {
         var match = window.location.hostname.match("([^\.]+)\.khantribute\.localgrid\.de")
         if(match === null) {
-            return 'zhcn'; // Default
+            return 'sv-SE'; // Default
         } else {
             var protoLangcode = match[1]; // "de" or "svse"
             // we need "sv-SE"
@@ -89,7 +193,7 @@ var Khantribute = (function() {
 
     function nextString(first) {
         if (first && strings.length === 0) {
-            $("main").html("<p class='congrats'>Congrats! There aren't any strings left to translate for this language right now!</p>");
+            $("main").html(`<p class='congrats'>Congrats! There aren't any strings left to translate to ${lang} right now!</p>`);
             return;
         }
 
@@ -170,10 +274,21 @@ var Khantribute = (function() {
         $('#skipBtn').on('click', onSkip);
         $('#rejectBtn').on('click', onReject);
 
-        let menu = new MDCMenu(document.getElementById("menu"));
+        let menu = new MDCMenu(document.getElementById("menu"));       
         $("#menu-button").click(function() {
             menu.open = !menu.open;
         });
+        let langMenu = new MDCMenu(document.getElementById("lang-menu"));
+        $("#lang-menu-button").click(function() {
+            langMenu.open = !langMenu.open;
+        });
+
+        $("#lang-list").append(langs.map(({bld, name}) => $(`<li class="mdc-list-item" role="menuitem">${name}</li>`).click(function() {
+            var match = window.location.hostname.match("([^\.]+)\.khantribute\.localgrid\.de")
+            if (match != null) {
+                window.location = `https://${bld}.khantribute.localgrid.de`;
+            }
+        })));
 
         $("#change-nick").click(function() {
             setNickname(prompt("Enter your new nickname") || nickname);
