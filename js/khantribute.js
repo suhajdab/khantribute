@@ -412,6 +412,9 @@ var Khantribute = (function() {
 
     // TODO implement nickname in UI
     function setNickname(newNickname) {
+        if (newNickname.length === 0) {
+            newNickname = nickname;
+        }
         nickname = newNickname;
         $("#nickname").text(newNickname);
         $.getJSON(apiPrefix + "/set-nickname/" + lang,
@@ -419,15 +422,6 @@ var Khantribute = (function() {
             // TODO handle errors?
         });
     }
-
-    // TODO implement UI
-    function getLeaderboard(newNickname) {
-        $.getJSON(apiPrefix + "/leaderboard/" + lang,
-            {client: cid}, function(data) {
-            // TODO handle JSON
-        });
-    }
-
 
     function submit(score) {
         // Send result to server

@@ -1,4 +1,4 @@
-const webpack = require("webpack")
+const webpack = require("webpack");
 const path = require("path");
 const MiniCSSExtractPlugin = require("mini-css-extract-plugin");
 const UglifyJSPlugin = require("uglifyjs-webpack-plugin");
@@ -26,18 +26,22 @@ module.exports = {
     devtool: "source-map",
     plugins: [
         new MiniCSSExtractPlugin({
-            filename: "./dist/[name].css"
+            filename: "[name].css"
         })
     ],
     entry: {
         khantribute: [
             "./js/khantribute.js",
             "./css/style.scss"
+        ],
+        leaderboard: [
+            "./js/leaderboard.js",
+            "./css/leaderboard.scss"
         ]
     },
     output: {
-        path: __dirname + "/",
-        filename: "dist/[name].js"
+        path: path.join(__dirname, "dist"),
+        filename: "[name].js"
     },
     module: {
         rules: [
