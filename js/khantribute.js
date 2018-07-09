@@ -64,6 +64,10 @@ var Khantribute = (function() {
     var lang = findLangFromDomain();
     $("#language").text(lang);
 
+    $("#feedback-button").click(function() {
+        window.location = window.location.origin + "/feedback.html";
+    });
+
     // API prefix for development: Just serve from "main domain"
     // NOTE: All domains serve identical content. The ONLY DIFFERENCE is the domain!
     var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
