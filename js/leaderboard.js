@@ -1,5 +1,6 @@
 import $ from "jquery"
 import {MDCMenu} from "@material/menu";
+import langs from "./data/langs.json";
 
 function generatePlaceholderNick() {
     let adjectives = [
@@ -30,110 +31,6 @@ function generatePlaceholderNick() {
 
     return adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)];
 }
-
-var langs = [ {
-    "bld" : "es",
-    "name" : "Spanish"
-  }, {
-    "bld" : "pt",
-    "name" : "Portuguese (Brazilian)"
-  }, {
-    "bld" : "pt-pt",
-    "name" : "Portuguese (European)"
-  }, {
-    "bld" : "fr",
-    "name" : "French"
-  }, {
-    "bld" : "tr",
-    "name" : "Turkish"
-  }, {
-    "bld" : "nb",
-    "name" : "Norwegian Bokmål"
-  }, {
-    "bld" : "hi",
-    "name" : "Hindi"
-  }, {
-    "bld" : "id",
-    "name" : "Indonesian"
-  }, {
-    "bld" : "ms",
-    "name" : "Malay"
-  }, {
-    "bld" : "cs",
-    "name" : "Czech"
-  }, {
-    "bld" : "da",
-    "name" : "Danish"
-  }, {
-    "bld" : "de",
-    "name" : "German"
-  }, {
-    "bld" : "xh",
-    "name" : "Xhosa"
-  }, {
-    "bld" : "it",
-    "name" : "Italian"
-  }, {
-    "bld" : "nl",
-    "name" : "Dutch"
-  }, {
-    "bld" : "pl",
-    "name" : "Polish"
-  }, {
-    "bld" : "el",
-    "name" : "Greek"
-  }, {
-    "bld" : "bg",
-    "name" : "Bulgarian"
-  }, {
-    "bld" : "mn",
-    "name" : "Mongolian"
-  }, {
-    "bld" : "ru",
-    "name" : "Russian"
-  }, {
-    "bld" : "sr",
-    "name" : "Serbian"
-  }, {
-    "bld" : "uk",
-    "name" : "Ukranian"
-  }, {
-    "bld" : "hy",
-    "name" : "Armenian"
-  }, {
-    "bld" : "he",
-    "name" : "Hebrew"
-  }, {
-    "bld" : "ur",
-    "name" : "Urdu"
-  }, {
-    "bld" : "ar",
-    "name" : "Arabic"
-  }, {
-    "bld" : "fa",
-    "name" : "Persian (Farsi)"
-  }, {
-    "bld" : "bn",
-    "name" : "Bengali"
-  }, {
-    "bld" : "te",
-    "name" : "Telugu"
-  }, {
-    "bld" : "th",
-    "name" : "Thai"
-  }, {
-    "bld" : "zh-hans",
-    "name" : "Simplified Chinese"
-  }, {
-    "bld" : "ja",
-    "name" : "Japanese"
-  }, {
-    "bld" : "ko",
-    "name" : "Korean"
-  }, {
-    "bld" : "ka",
-    "name" : "Georgian"
-  } ];
 
 function findLangFromDomain() {
     var match = window.location.hostname.match("([^\.]+)\.khantribute\.localgrid\.de")
