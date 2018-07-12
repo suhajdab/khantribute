@@ -70,6 +70,10 @@ main {
         min-height: 15vh;
         overflow-y: auto;
     }
+
+    .mdc-dialog__surface {
+        max-height: 80vh;
+    }
 }
 
 .khantribute-status {
