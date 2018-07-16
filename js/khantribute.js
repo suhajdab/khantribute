@@ -13,54 +13,11 @@ import {MDCCheckbox} from "@material/checkbox";
 import {MDCSnackbar} from "@material/snackbar";
 import {MDCMenu} from "@material/menu";
 import langs from "./data/langs.json";
+import config from "./data/config.json";
+import generatePlaceholderNick from "./util/generate-placeholder-nick.js";
+import findLangFromDomain from "./util/find-lang-from-domain.js";
 
-function generatePlaceholderNick() {
-    let adjectives = [
-        "Happy",
-        "Sad",
-        "Smart",
-        "Tired",
-        "Green",
-        "Purple",
-        "Small",
-        "Large",
-        "Real",
-        "Weird"
-    ];
-
-    let nouns = [
-        "Aardvark",
-        "Buffalo",
-        "Chair",
-        "Dog",
-        "Eagle",
-        "Fountain",
-        "Goat",
-        "Human",
-        "Igloo",
-        "Juniper"
-    ];
-
-    return adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)];
-}
-
-var Khantribute = (function() {
-    
-    function findLangFromDomain() {
-        var match = window.location.hostname.match("([^\.]+)\.khantribute\.localgrid\.de")
-        if(match === null) {
-            return 'sv-SE'; // Default
-        } else {
-            var protoLangcode = match[1]; // "de" or "svse"
-            // we need "sv-SE"
-            if(protoLangcode.length <= 2) {
-                return protoLangcode
-            } else { // "svse", need to convert to "sv-SE"
-                return /* sv */ protoLangcode.slice(0,2) + "-" + protoLangcode.slice(2).toUpperCase();
-            }
-        }
-    }
-    
+var Khantribute = (function() {    
     var lang = findLangFromDomain();
     $("#language").text(lang);
 
@@ -70,7 +27,7 @@ var Khantribute = (function() {
 
     // API prefix for development: Just serve from "main domain"
     // NOTE: All domains serve identical content. The ONLY DIFFERENCE is the domain!
-    var apiPrefix = "https://katc.localgrid.de/apiv3/khantribute";
+    var apiPrefix = config.apiPrefix;
     var nickname = generatePlaceholderNick();
     if(window.location.hostname.includes(".khantribute.localgrid.de")) {
         // Default for "production use": Use current domain
@@ -82,12 +39,6 @@ var Khantribute = (function() {
         string_id = null,
         strings = [],
         count = 0,
-        total = 0,
-        blocked = false, // Ignore events, e.g. when animation is still ongoing
-        animationOngoing,
-        hideCheckbox,
-        hideForm,
-        welcomeDialog,
         $card,
         feedbackSnackbar;
     const newCardAnimLen = 0.5;
