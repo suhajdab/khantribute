@@ -40,6 +40,7 @@ var Khantribute = (function() {
         strings = [],
         count = 0,
         $card,
+        total = 0,
         feedbackSnackbar;
     const newCardAnimLen = 0.5;
 
@@ -100,8 +101,7 @@ var Khantribute = (function() {
 
     function init() {
         $card = $('#container');
-        hideForm = new MDCFormField(document.getElementById("hide-form"));
-        hideCheckbox = new MDCCheckbox(document.getElementById("hide-checkbox"));
+        new MDCCheckbox(document.getElementById("hide-checkbox"));
         feedbackSnackbar = new MDCSnackbar(document.getElementById("feedback-snackbar"));
         if (localStorage.getItem("disable-welcome") == null) {
 			setupWelcomeDialog();
