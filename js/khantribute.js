@@ -244,8 +244,6 @@ var Khantribute = (function() {
                     resetCard();
                 }, newCardAnimLen * 1000);
             }
-                // 10 pixels per second
-                applyTransition(0, 0, 0, ev.deltaX / 100);
         } else {
             // dragging
             setTransform(ev.deltaX, 0);
