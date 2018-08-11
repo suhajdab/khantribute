@@ -343,7 +343,7 @@ var Khantribute = (function() {
 		$.getJSON(apiPrefix + "/strings/" + lang + "?offset=" + stringsOffset, function onGetJSONSuccess(data) {
             strings = data;
             total = strings.length;
-            offset += strings.length;
+            stringsOffset += strings.length;
             if (string_id == null) {
                 nextString(first);
             }
