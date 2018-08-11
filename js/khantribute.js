@@ -39,6 +39,7 @@ var Khantribute = (function() {
         string_id = null,
         strings = [],
         count = 0,
+        stringsOffset = 0,
         $card,
         total = 0,
         feedbackSnackbar;
@@ -339,9 +340,10 @@ var Khantribute = (function() {
     }
 
     function fetchStrings(first) {
-		$.getJSON(apiPrefix + "/strings/" + lang, function onGetJSONSuccess(data) {
+		$.getJSON(apiPrefix + "/strings/" + lang + "?offset=" + stringsOffset, function onGetJSONSuccess(data) {
             strings = data;
             total = strings.length;
+            offset += strings.length;
             if (string_id == null) {
                 nextString(first);
             }
