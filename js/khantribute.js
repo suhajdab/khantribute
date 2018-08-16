@@ -43,7 +43,7 @@ var Khantribute = (function() {
         $card,
         total = 0,
         feedbackSnackbar;
-    const newCardAnimLen = 0.5;
+    const newCardAnimLen = 0.25;
 
     function nextString(first) {
         if (first && strings.length === 0) {
@@ -122,7 +122,7 @@ var Khantribute = (function() {
         // Fetch first set of strings
         fetchStrings(true);
         
-        (new Hammer($card[0])).on("panleft panright panend", onPan);
+        (new Hammer($card[0])).on("pan panright panleft panend", onPan);
         $('#approveBtn').on('click', onApprove);
         $('#skipBtn').on('click', onSkip);
         $('#rejectBtn').on('click', onReject);
@@ -207,7 +207,7 @@ var Khantribute = (function() {
     function onPan(ev) {
         var yfactor = ev.deltaX >= 0 ? 1 : -1,
             resultEvent = {};
-        
+        console.log(ev);
         if (ev.deltaX > 0) {
             $(".khantribute-approve-bar").width(ev.deltaX);
             $(".khantribute-deny-bar").width(0);
@@ -244,8 +244,10 @@ var Khantribute = (function() {
                     nextString();
                     resetCard();
                 }, newCardAnimLen * 1000);
+            } else {
+                applyTransition(0, 0, 0, newCardAnimLen);
             }
-        } else {
+        } else if (ev.type === "panleft" || ev.type === "panright") {
             // dragging
             setTransform(ev.deltaX, 0);
         }
