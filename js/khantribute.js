@@ -126,6 +126,8 @@ var Khantribute = (function() {
         $('#approveBtn').on('click', onApprove);
         $('#skipBtn').on('click', onSkip);
         $('#rejectBtn').on('click', onReject);
+	    //not exactly sure if below addition is right or if this is only for hammer OP
+	$('#smlRejectBtn').on('click', onSmlReject);
 
         let menu = new MDCMenu(document.getElementById("menu"));       
         $("#menu-button").click(function() {
