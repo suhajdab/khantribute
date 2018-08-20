@@ -94,6 +94,14 @@ main {
             left: -1.5em;
         }
         
+        #smlRejectBtn {
+            background: #ff9900;
+        }
+        
+        #smlRejectBtn.active {
+            left: -1.5em;
+        }
+        
         #skipBtn {
             background: #2196F3;
             left: 4em;

@@ -126,6 +126,8 @@ var Khantribute = (function() {
         $('#approveBtn').on('click', onApprove);
         $('#skipBtn').on('click', onSkip);
         $('#rejectBtn').on('click', onReject);
+	    //not exactly sure if below addition is right or if this is only for hammer OP
+	$('#smlRejectBtn').on('click', onSmlReject);
 
         let menu = new MDCMenu(document.getElementById("menu"));       
         $("#menu-button").click(function() {
@@ -329,7 +331,21 @@ var Khantribute = (function() {
             timeout: 1000
         });
     }
-
+	
+    function onSmlReject() {
+        applyTransition(-$("body").width(), 0, 0, newCardAnimLen);
+        setTimeout(() => {
+            submit(-0.01);
+            nextString();
+            resetCard();
+        }, newCardAnimLen * 1000);
+        feedbackSnackbar.show({
+            message: "Almost good translation",
+            timeout: 1000
+        });
+        nextString();
+    }
+	
     function onSkip() {
         applyTransition(0, $("body").height(), 0, newCardAnimLen);
         setTimeout(() => {
