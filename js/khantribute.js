@@ -315,7 +315,6 @@ var Khantribute = (function() {
             message: "Approved translation",
             timeout: 1000
         });
-        nextString();
     }
 
     function onReject() {
@@ -329,7 +328,6 @@ var Khantribute = (function() {
             message: "Rejected translation",
             timeout: 1000
         });
-        nextString();
     }
 
     function onSkip() {
