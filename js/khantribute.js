@@ -290,7 +290,7 @@ var Khantribute = (function() {
         
         $.getJSON(apiPrefix + "/submit/" + lang, params, function(data) {
             $("#rank").text(data.rank);
-            count += score === ? 0 : 1; // If the user skipped, we don't want to award them any points
+            count += (score === 0 ? 0 : 1); // If the user skipped, we don't want to award them any points
             $("#score").text(count);
         });
     }
