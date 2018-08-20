@@ -53,7 +53,7 @@ var Khantribute = (function() {
 
         if (strings == null || strings.length == 0) {
             string_id = null;
-            fetchStrings();
+            fetchStrings(false, 3);
             return;
         }
         
@@ -120,7 +120,7 @@ var Khantribute = (function() {
         loadUserInfo();
 
         // Fetch first set of strings
-        fetchStrings(true);
+        fetchStrings(true, 3);
         
         (new Hammer($card[0])).on("pan panright panleft panend", onPan);
         $('#approveBtn').on('click', onApprove);
@@ -355,7 +355,7 @@ var Khantribute = (function() {
         }, newCardAnimLen * 1000);
     }
 
-    function fetchStrings(first) {
+    function fetchStrings(first, retriesLeft) {
 		$.getJSON(apiPrefix + "/strings/" + lang, {offset:  stringsOffset, client: cid}, function onGetJSONSuccess(data) {
             strings = data;
             total = strings.length;
@@ -365,11 +365,15 @@ var Khantribute = (function() {
             }
         })
 		.fail(function onGetJSONFail(){
+            // Retry if possible
+            if(retriesLeft > 0) {
+                return fetchStrings(first, retriesLeft - 1);
+            }
 			console.error('onGetJSONFail', arguments);
 			if (!testing) {
 				alert('Application is unable to fetch translation strings from the server. It will instead enter demo mode and load locally stored test data for testing purposes. Your responses will not be stored in demo mode.\nPlease reload the application to attempt connecting to server again and resume proofreading.');
 				testing = true;
-				fetchStrings();
+				fetchStrings(first, retriesLeft);
 			} else {
 				throw('Fatal error. Local data unreachable.');
 			}
