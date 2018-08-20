@@ -364,9 +364,10 @@ var Khantribute = (function() {
                 nextString(first);
             }
         })
-		.fail(function onGetJSONFail(){
+		.fail(function onGetJSONFail(err){
             // Retry if possible
             if(retriesLeft > 0) {
+                console.warn("Retrying to fetch strings", err)
                 return fetchStrings(first, retriesLeft - 1);
             }
 			console.error('onGetJSONFail', arguments);
