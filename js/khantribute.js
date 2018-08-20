@@ -331,7 +331,21 @@ var Khantribute = (function() {
         });
         nextString();
     }
-
+	
+    function onSmlReject() {
+        applyTransition(-$("body").width(), 0, 0, newCardAnimLen);
+        setTimeout(() => {
+            submit(-0.01);
+            nextString();
+            resetCard();
+        }, newCardAnimLen * 1000);
+        feedbackSnackbar.show({
+            message: "Almost good translation",
+            timeout: 1000
+        });
+        nextString();
+    }
+	
     function onSkip() {
         applyTransition(0, $("body").height(), 0, newCardAnimLen);
         setTimeout(() => {
