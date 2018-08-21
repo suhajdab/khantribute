@@ -58,6 +58,9 @@ var Khantribute = (function() {
         }
         
         let display = strings.shift();
+
+
+        console.info("Next string", display);
         
         try {
             displayStrings(display);
@@ -287,6 +290,7 @@ var Khantribute = (function() {
             "score": score,
             "nickname": nickname
         }
+        console.info("Submitting", params);
         
         $.getJSON(apiPrefix + "/submit/" + lang, params, function(data) {
             $("#rank").text(data.rank);
@@ -343,7 +347,6 @@ var Khantribute = (function() {
             message: "Almost good translation",
             timeout: 1000
         });
-        nextString();
     }
 	
     function onSkip() {
