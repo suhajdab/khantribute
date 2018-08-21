@@ -1,22 +1,11 @@
 import { languages } from "../data/languages";
 import { lskeys } from "../data/lskeys";
-
-function getStoredLang() {
-    if (localStorage) {
-        return localStorage.getItem(lskeys.LANG) || 0;
-    }
-}
-
-function setStoredLang(langIndex) {
-    if (localStorage) {
-        localStorage.setItem(lskeys.LANG, langIndex);
-    }
-}
+import ls from "../util/ls";
 
 function getInitialLang() {
     let match = window.location.hostname.match("([^\.]+)\.khantribute\.localgrid\.de")
     if(match === null) {
-        return getStoredLang(); // Default
+        return (ls.getItem(lskeys.LANG) || 0); // Default
     } else {
         let langIndex = languages.findIndex((lang) => lang.bld === match[1]);
 
@@ -37,7 +26,7 @@ export class TranslationService {
     setLang(i) {
         if (i >= 0 && i < this.languages.length) {
             this.selected = i;
-            setStoredLang(i);
+            ls.setItem(lskeys.LANG, i);
         }
     }
     getLang() {

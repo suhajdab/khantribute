@@ -1,0 +1,36 @@
+<ul id="user-dropdown-content" class="dropdown-content">
+    <li>
+        <a
+            href="javascript:void(0);"
+            class="black-text"
+            (click)="changeNick()"
+        >
+                Change Nickname
+        </a>
+    </li>
+    <li>
+        <a
+            href="javascript:void(0);"
+            class="black-text"
+        >
+                View Leaderboard
+        </a>
+    </li>
+    <li>
+        <a
+            href="javascript:void(0);"
+            class="black-text"
+        >
+                Give Feedback
+        </a>
+    </li>
+</ul>
+<a
+    class="dropdown-trigger black-text"
+    href="javascript:void(0);"
+    id="user-dropdown"
+    data-target="user-dropdown-content"
+>
+    <span class="hide-on-small-only">{{userService.getNick()}}</span>
+    <i class="material-icons right">account_circle</i>
+</a>

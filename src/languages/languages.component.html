@@ -1,4 +1,4 @@
-<ul id="lang-dropdown" class="dropdown-content">
+<ul id="lang-dropdown-content" class="dropdown-content">
     <li
         *ngFor="let language of translationService.languages; let i = index"
     >
@@ -15,7 +15,8 @@
 <a
     class="dropdown-trigger black-text"
     href="javascript:void(0);"
-    data-target="lang-dropdown"
+    id="lang-dropdown"
+    data-target="lang-dropdown-content"
 >
     <i class="material-icons left">language</i>
     <span class="hide-on-small-only">{{translationService.getLang().name}}</span>
