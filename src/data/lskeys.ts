@@ -1,4 +1,5 @@
 export const lskeys = {
     LANG: "lang",
-    USER: "user"
+    USER: "user",
+    CID: "cid"
 };

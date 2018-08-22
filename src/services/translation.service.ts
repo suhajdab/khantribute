@@ -1,38 +1,25 @@
-import { languages } from "../data/languages";
-import { lskeys } from "../data/lskeys";
-import ls from "../util/ls";
+import { Injectable } from "@angular/core";
+import { HttpClient } from "@angular/common/http";
+import { AppService } from "./app.service";
 
-function getInitialLang() {
-    let match = window.location.hostname.match("([^\.]+)\.khantribute\.localgrid\.de")
-    if(match === null) {
-        return (ls.getItem(lskeys.LANG) || 0); // Default
-    } else {
-        let langIndex = languages.findIndex((lang) => lang.bld === match[1]);
-
-        if (langIndex < 0) {
-            return 0;
-        } else {
-            return langIndex;
-        }
-    }
-}
-
+@Injectable({
+    providedIn: "root"
+})
 export class TranslationService {
-    private selected
-    languages = languages
-    constructor() {
-        this.setLang(getInitialLang());
+    constructor(private appService: AppService, private http: HttpClient) {}
+    approveString() {
+        this.submit(1);
     }
-    setLang(i) {
-        if (i >= 0 && i < this.languages.length) {
-            this.selected = i;
-            ls.setItem(lskeys.LANG, i);
-        }
+    skipString() {
+        this.submit(0);
     }
-    getLang() {
-        return this.languages[this.selected];
+    softRejectString() {
+        this.submit(-0.09);
     }
-    getLangIndex() {
-        return this.selected;
+    rejectString() {
+        this.submit(-1);
+    }
+    private submit(score) {
+        
     }
 }

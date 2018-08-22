@@ -1,0 +1,13 @@
+/* Horizontally center the div, which is fixed so we can't use `margin: auto` */
+.khantribute-controls {
+    right: 0;
+    left: 0;
+    display: flex;
+    align-items: center;
+    max-width: 300px;
+}
+
+.khantribute-controls .col {
+    padding: 0;
+    margin: 0 auto;
+}

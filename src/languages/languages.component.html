@@ -1,14 +1,14 @@
 <ul id="lang-dropdown-content" class="dropdown-content">
     <li
-        *ngFor="let language of translationService.languages; let i = index"
+        *ngFor="let language of appService.languages; let i = index"
     >
         <a
             href="javascript:void(0);"
             class="black-text"
-            [style.fontWeight]="translationService.getLangIndex() === i ? 'bold' : ''"
+            [style.font-weight]="appService.getLangIndex() === i ? 'bold' : ''"
             (click)="setLang(i)"
         >
-                {{language.name}}
+            {{language.name}}
         </a>
     </li>
 </ul>
@@ -18,6 +18,6 @@
     id="lang-dropdown"
     data-target="lang-dropdown-content"
 >
-    <i class="material-icons left">language</i>
-    <span class="hide-on-small-only">{{translationService.getLang().name}}</span>
+    <i class="material-icons left">translate</i>
+    <span class="hide-on-small-only">{{appService.getLang().name}}</span>
 </a>

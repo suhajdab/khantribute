@@ -1,14 +1,13 @@
 import { Component, OnInit } from "@angular/core";
 import M from "materialize-css";
-import { UserService } from "../services/user.service";
+import { AppService } from "../services/app.service";
 
 @Component({
     selector: "user-dropdown",
-    templateUrl: "./user.component.html",
-    providers: [UserService]
+    templateUrl: "./user.component.html"
 })
 export class UserComponent implements OnInit {
-    constructor(private userService: UserService) {}
+    constructor(private appService: AppService) {}
     ngOnInit() {
         M.Dropdown.init(document.getElementById("user-dropdown"), {
             alignment: "right",
@@ -16,6 +15,6 @@ export class UserComponent implements OnInit {
         });
     }
     changeNick() {
-        this.userService.setNick(prompt("What would you like your new nickname to be?"));
+        this.appService.setNickname(prompt("What would you like your new nickname to be?"));
     }
 }
