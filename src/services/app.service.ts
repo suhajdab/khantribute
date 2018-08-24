@@ -4,6 +4,7 @@ import { lskeys } from "../data/lskeys";
 import { languages } from "../data/languages";
 import { HttpClient } from "@angular/common/http";
 import api from "../data/api";
+import { toQueryString } from "../util/to-query-string";
 
 let adjectives = [
     "Happy",
@@ -33,10 +34,6 @@ let nouns = [
 
 function generateNick(): string {
     return adjectives[Math.floor(Math.random() * adjectives.length)] + nouns[Math.floor(Math.random() * nouns.length)];
-}
-
-function toQueryString(obj: Object) {
-    return "?" + Object.keys(obj).filter(key => obj.hasOwnProperty(key)).map(key => `${key}=${obj[key]}`).join("&");
 }
 
 function getInitialLang() {
@@ -75,8 +72,12 @@ export class AppService {
         if (this.nickIsValid(ls.getItem(lskeys.USER))) {
             this.setNickname(ls.getItem(lskeys.USER));
         }
-
-        this.http.get(api.root + api.user + this.getLang().bld + "?client=" + this.getClientID()).subscribe((data: {nickname: string, num_votes: number}) => {
+        
+        let bld = this.getLang().bld;
+        // Because consistency
+        if (bld === "svse") bld = "sv-SE";
+        console.log(bld);
+        this.http.get(api.root + api.user + bld + "?client=" + this.getClientID()).subscribe((data: {nickname: string, num_votes: number}) => {
             this.setNickname(data.nickname);
         });
     }
@@ -93,7 +94,11 @@ export class AppService {
         if (this.nickIsValid(nick) && nick !== this.user.nickname) {
             ls.setItem(lskeys.USER, nick);
             this.user.nickname = nick;
-            this.http.get(api.root + api.setNick + this.getLang().bld + toQueryString({
+            let bld = this.getLang().bld;
+            // Because consistency
+            if (bld === "svse") bld = "sv-SE";
+            console.log(bld);
+            this.http.get(api.root + api.setNick + bld + toQueryString({
                 client: this.getClientID(),
                 nickname: nick
             })).subscribe(() => {

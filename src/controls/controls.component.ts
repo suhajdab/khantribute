@@ -5,7 +5,7 @@ import { TranslationService } from "../services/translation.service";
     selector: "controls",
     templateUrl: "./controls.component.html",
     styleUrls: ["./controls.component.css"],
-    providers: [TranslationService]
+    providers: [ TranslationService ]
 })
 export class ControlsComponent {
     constructor(private translationService: TranslationService) {}

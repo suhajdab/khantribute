@@ -11,6 +11,6 @@ import { ControlsComponent } from "./controls.component";
         BrowserModule
     ],
     providers: [],
-    bootstrap: [ControlsComponent]
+    bootstrap: [ ControlsComponent ]
 })
 export class ControlsModule { }

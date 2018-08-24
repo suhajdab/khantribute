@@ -1,0 +1,22 @@
+.card {
+    padding-bottom: 1.5em
+}
+
+.translation-card {
+    text-align: left;
+    padding: 0 3em;
+    position: relative;
+    line-height: 6em;
+    background-image: repeating-linear-gradient(180deg, #ffffff 0, #ffffff 3em, #e0e0e0 3em, #e0e0e0 6em);
+    background-repeat: repeat-y;
+    background-position-y: 1.5em;
+    padding-bottom: 1.5em;
+}
+
+.translation-card span {
+    position: absolute;
+    top: 3em;
+    left: 0;
+    right: 0;
+    padding: 0 3em;
+}
