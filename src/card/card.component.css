@@ -4,19 +4,19 @@
 
 .translation-card {
     text-align: left;
-    padding: 0 3em;
+    padding: 0 2.25em;
     position: relative;
-    line-height: 6em;
-    background-image: repeating-linear-gradient(180deg, #ffffff 0, #ffffff 3em, #e0e0e0 3em, #e0e0e0 6em);
+    line-height: 9em;
+    background-image: repeating-linear-gradient(180deg, #ffffff 0, #ffffff 4.5em, #e0e0e0 4.5em, #e0e0e0 9em);
     background-repeat: repeat-y;
-    background-position-y: 1.5em;
-    padding-bottom: 1.5em;
+    background-position-y: 2.25em;
+    padding-bottom: 2.25em;
 }
 
-.translation-card span {
+.translation-card > span:last-child {
     position: absolute;
-    top: 3em;
+    top: 4.5em;
     left: 0;
     right: 0;
-    padding: 0 3em;
+    padding: 0 2.25em;
 }

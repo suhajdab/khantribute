@@ -5,6 +5,7 @@ import { languages } from "../data/languages";
 import { HttpClient } from "@angular/common/http";
 import api from "../data/api";
 import { toQueryString } from "../util/to-query-string";
+import katex from "katex";
 
 let adjectives = [
     "Happy",
@@ -131,5 +132,10 @@ export class AppService {
             return cid;
         }
         return ls.getItem(lskeys.CID);
+    }
+    renderKatex(s: string): string {
+        return katex.renderToString(s, {
+            throwOnError: false
+        });
     }
 }

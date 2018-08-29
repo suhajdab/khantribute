@@ -13,7 +13,7 @@ export class TranslationService {
         num_votes: number,
         source: string,
         source_length: number,
-        target: number
+        target: string
     }> = [];
     constructor(private appService: AppService, private http: HttpClient) {
         this.loadStrings();

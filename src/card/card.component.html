@@ -2,10 +2,15 @@
     <div class="row">
         <div class="col s12 m8 offset-m2">
             <div class="card">
-                <div class="translation-card">
-                    <b>Translation</b><br/>{{getTranslation()}}
-                    <span><b>Original</b><br/>{{getOriginal()}}</span>
+                <div class="translation-card" *ngIf="translationService.stringsLeft() > 0; else congrats">
+                    <b>Translation</b><br/><span [innerHTML]="getTranslationHTML()"></span>
+                    <span><b>Original</b><br/><span [innerHTML]="getOriginalHTML()"></span></span>
                 </div>
+                <ng-template #congrats>
+                    <div class="card-content">
+                        <p>Congratulations! There are no strings left to translate right now. We'll probably have some later, but you can relax for now.</p>
+                    </div>
+                </ng-template>
             </div>
         </div>
     </div>
