@@ -1,5 +1,11 @@
 .card {
-    padding-bottom: 1.5em
+    padding-bottom: 1.5em;
+    user-select: none;
+}
+
+.translation-card-container {
+    position: relative;
+    /* z-index: -1; */
 }
 
 .translation-card {
@@ -10,7 +16,7 @@
     background-image: repeating-linear-gradient(180deg, #ffffff 0, #ffffff 4.5em, #e0e0e0 4.5em, #e0e0e0 9em);
     background-repeat: repeat-y;
     background-position-y: 2.25em;
-    padding-bottom: 2.25em;
+    padding-bottom: 11.25em;
 }
 
 .translation-card > span:last-child {

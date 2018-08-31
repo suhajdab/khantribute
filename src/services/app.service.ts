@@ -77,7 +77,6 @@ export class AppService {
         let bld = this.getLang().bld;
         // Because consistency
         if (bld === "svse") bld = "sv-SE";
-        console.log(bld);
         this.http.get(api.root + api.user + bld + "?client=" + this.getClientID()).subscribe((data: {nickname: string, num_votes: number}) => {
             this.setNickname(data.nickname);
         });
@@ -98,7 +97,6 @@ export class AppService {
             let bld = this.getLang().bld;
             // Because consistency
             if (bld === "svse") bld = "sv-SE";
-            console.log(bld);
             this.http.get(api.root + api.setNick + bld + toQueryString({
                 client: this.getClientID(),
                 nickname: nick

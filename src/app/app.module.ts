@@ -9,6 +9,7 @@ import { HttpClientModule } from "@angular/common/http";
 import { AppServiceModule } from "../services/app.service.module";
 import { AppService } from "../services/app.service";
 import { CardComponent } from "../card/card.component";
+import "hammerjs";
 
 @NgModule({
     declarations: [

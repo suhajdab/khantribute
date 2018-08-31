@@ -52,7 +52,7 @@ export function parseString(s: string): Token[] {
                     nFormat = Format.STRIKE;
                 }
                 break;
-            case "[":
+            case "!":
                 let link = links.shift();
 
                 tokens.push({

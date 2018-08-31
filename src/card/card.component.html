@@ -1,10 +1,17 @@
-<div class="container">
+<div class="container translation-card-container"
+    (panend)="onPanEnd($event)"
+    (pancancel)="onPanEnd($event)"
+    (panleft)="onPan($event)"
+    (panright)="onPan($event)"
+    (panup)="onPan($event)"
+    (pandown)="onPan($event)"
+    [style.left.px]="getScrollX()">
     <div class="row">
         <div class="col s12 m8 offset-m2">
             <div class="card">
                 <div class="translation-card" *ngIf="translationService.stringsLeft() > 0; else congrats">
-                    <b>Translation</b><br/><span [innerHTML]="getTranslationHTML()"></span>
-                    <span><b>Original</b><br/><span [innerHTML]="getOriginalHTML()"></span></span>
+                    <b>Translation</b>&nbsp;<span [innerHTML]="getTranslationHTML()"></span>
+                    <span><b>Original</b>&nbsp;<span [innerHTML]="getOriginalHTML()"></span></span>
                 </div>
                 <ng-template #congrats>
                     <div class="card-content">
