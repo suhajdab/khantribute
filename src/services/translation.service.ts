@@ -4,6 +4,8 @@ import { AppService } from "./app.service";
 import api from "../data/api";
 import { toQueryString } from "../util/to-query-string";
 
+let callbacks: Array<Function> = [];
+
 @Injectable({
     providedIn: "root"
 })
@@ -54,11 +56,18 @@ export class TranslationService {
     rejectString() {
         this.submit(-1);
     }
+    onSubmit(fn: Function) {
+        callbacks.push(fn);
+    }
     private submit(score) {
         let bld = this.appService.getLang().bld;
         // Because consistency
         if (bld === "svse") bld = "sv-SE";
 
+        for (let cb of callbacks) {
+            cb(score);
+        }
+        
         this.http.get(api.root + api.submit + bld + toQueryString({
             client: this.appService.getClientID(),
             stringid: this.strings[0].id,

@@ -11,6 +11,7 @@ enum PanType {
 
 enum Action {
     APPROVE = 1,
+    SKIP = 3,
     REJECT = -1,
     NONE = 0,
     RESET = 2
@@ -30,7 +31,9 @@ export class CardComponent {
     private scrollY: number = 0;
     private lastEnd: number = -Infinity;
     private action: Action = Action.NONE;
-    constructor(private translationService: TranslationService, private sanitizer: DomSanitizer, private changeDetector: ChangeDetectorRef) {}
+    constructor(private translationService: TranslationService, private sanitizer: DomSanitizer, private changeDetector: ChangeDetectorRef) {
+        this.translationService.onSubmit(this.handleSubmit.bind(this));
+    }
     getTranslationHTML(): SafeHtml {
         if (this.translationService.stringsLeft() > 0) {
             try {
@@ -84,17 +87,17 @@ export class CardComponent {
         evt.preventDefault();
         if (this.scrollX <= -window.innerWidth / 4) {
             this.translationService.rejectString();
-            this.animate(Action.REJECT);
         } else if (this.scrollX >= window.innerWidth / 4) {
             this.translationService.approveString();
-            this.animate(Action.APPROVE);
         }
         this.panType = PanType.NONE;
         this.scrollX = 0;
         this.lastEnd = evt.timeStamp;
     }
-    animate(action: Action) {
-        this.action = action;
+    handleSubmit(score) {
+        if (score > 0) this.action = Action.APPROVE;
+        else if (score < 0) this.action = Action.REJECT;
+        else this.action = Action.SKIP;
         setTimeout(() => {
             this.action = Action.RESET;
             this.translationService.advance();

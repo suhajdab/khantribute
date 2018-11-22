@@ -5,6 +5,7 @@
 
 .translation-card-container {
     position: relative;
+    top: 0;
     /* z-index: -1; */
 }
 
@@ -18,8 +19,13 @@
     left: -100vw !important;
 }
 
+.translation-card-container.skipped {
+    transition: top 0.5s;
+    top: 100vh !important;
+}
+
 .translation-card-container.reset {
-    transition: left 0.5s;
+    transition: left 0.5s, top 0.5s;
 }
 
 .translation-card {

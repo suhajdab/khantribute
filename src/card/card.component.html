@@ -24,6 +24,7 @@
         [style.left.px]="getScrollX()"
         [class.approved]="action == 1"
         [class.rejected]="action == -1"
+        [class.skipped]="action == 3"
         [class.reset]="action != 2 && panType == 0">
         <div class="row">
             <div class="col s12 m8 offset-m2">
