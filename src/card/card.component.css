@@ -8,6 +8,20 @@
     /* z-index: -1; */
 }
 
+.translation-card-container.approved {
+    transition: left 0.5s;
+    left: 100vw !important;
+}
+
+.translation-card-container.rejected {
+    transition: left 0.5s;
+    left: -100vw !important;
+}
+
+.translation-card-container.reset {
+    transition: left 0.5s;
+}
+
 .translation-card {
     text-align: left;
     padding: 0 2.25em;
@@ -25,4 +39,26 @@
     left: 0;
     right: 0;
     padding: 0 2.25em;
+}
+
+.last-translation-card {
+    position: absolute;
+}
+
+.overlap-container {
+    position: absolute;
+    top: 0;
+    width: 100%;
+}
+
+.next-translation-card-container {
+    position: relative;
+    top: -8px;
+    left: -8px;
+    transition: left 0.5s, top 0.5s;
+}
+
+.next-translation-card-container.on-top {
+    top: 0;
+    left: 0;
 }

@@ -1,0 +1,6 @@
+.card-wrapper {
+    position: relative;
+    overflow: visible;
+    margin-top: 16px;
+    overflow-x: hidden;
+}

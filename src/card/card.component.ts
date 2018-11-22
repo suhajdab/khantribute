@@ -4,9 +4,16 @@ import {parseString, toHTML} from "./parser";
 import { DomSanitizer, SafeHtml } from "@angular/platform-browser";
 
 enum PanType {
-    HORIZONTAL,
-    VERTICAL,
-    NONE
+    HORIZONTAL = 2,
+    VERTICAL = 1,
+    NONE = 0
+}
+
+enum Action {
+    APPROVE = 1,
+    REJECT = -1,
+    NONE = 0,
+    RESET = 2
 }
 
 @Component({
@@ -22,12 +29,27 @@ export class CardComponent {
     private scrollX: number = 0;
     private scrollY: number = 0;
     private lastEnd: number = -Infinity;
+    private action: Action = Action.NONE;
     constructor(private translationService: TranslationService, private sanitizer: DomSanitizer, private changeDetector: ChangeDetectorRef) {}
     getTranslationHTML(): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.currentString().target)));
+        if (this.translationService.stringsLeft() > 0)
+            return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.currentString().target)));
+        else return "";
     }
     getOriginalHTML(): SafeHtml {
-        return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.currentString().source)));
+        if (this.translationService.stringsLeft() > 0)
+            return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.currentString().source)));
+        else return "";
+    }
+    getNextTranslationHTML(): SafeHtml {
+        if (this.translationService.stringsLeft() > 1)
+            return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.nextString().target)));
+        else return "";
+    }
+    getNextOriginalHTML(): SafeHtml {
+        if (this.translationService.stringsLeft() > 1)
+            return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.nextString().source)));
+        else return "";
     }
     onPanStart(evt) {
         evt.preventDefault();
@@ -36,11 +58,24 @@ export class CardComponent {
     }
     onPanEnd(evt) {
         evt.preventDefault();
-        if (this.scrollX <= -window.innerWidth / 4) this.translationService.rejectString();
-        else if (this.scrollX >= window.innerWidth / 4) this.translationService.approveString();
+        if (this.scrollX <= -window.innerWidth / 4) {
+            this.translationService.rejectString();
+            this.animate(Action.REJECT);
+        } else if (this.scrollX >= window.innerWidth / 4) {
+            this.translationService.approveString();
+            this.animate(Action.APPROVE);
+        }
         this.panType = PanType.NONE;
         this.scrollX = 0;
         this.lastEnd = evt.timeStamp;
+    }
+    animate(action: Action) {
+        this.action = action;
+        setTimeout(() => {
+            this.action = Action.RESET;
+            this.translationService.advance();
+            setTimeout(() => this.action = Action.NONE, 500);
+        }, 500);
     }
     onPan(evt) {
         if (evt.timeStamp < this.lastEnd + 20) {
