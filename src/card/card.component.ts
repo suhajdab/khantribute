@@ -32,24 +32,48 @@ export class CardComponent {
     private action: Action = Action.NONE;
     constructor(private translationService: TranslationService, private sanitizer: DomSanitizer, private changeDetector: ChangeDetectorRef) {}
     getTranslationHTML(): SafeHtml {
-        if (this.translationService.stringsLeft() > 0)
-            return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.currentString().target)));
-        else return "";
+        if (this.translationService.stringsLeft() > 0) {
+            try {
+                return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.currentString().target)));
+            } catch {
+                // Stop parser errors from ruining UX by just going to the next string that doesn't throw an error
+                console.error(`Error parsing translation string ${this.translationService.currentString().id}`);
+                this.translationService.advance();
+                return this.sanitizer.bypassSecurityTrustHtml("");
+            }
+        } else return this.sanitizer.bypassSecurityTrustHtml("");
     }
     getOriginalHTML(): SafeHtml {
-        if (this.translationService.stringsLeft() > 0)
-            return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.currentString().source)));
-        else return "";
+        if (this.translationService.stringsLeft() > 0) {
+            try {
+                return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.currentString().source)));
+            } catch {
+                // Stop parser errors from ruining UX by just going to the next string that doesn't throw an error
+                console.error(`Error parsing original string ${this.translationService.currentString().id}`);
+                this.translationService.advance();
+                return this.sanitizer.bypassSecurityTrustHtml("");
+            }
+        } else return this.sanitizer.bypassSecurityTrustHtml("");
     }
     getNextTranslationHTML(): SafeHtml {
-        if (this.translationService.stringsLeft() > 1)
-            return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.nextString().target)));
-        else return "";
+        if (this.translationService.stringsLeft() > 1) {
+            try {
+                return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.nextString().target)));
+            } catch {
+                console.error(`Error parsing translation string ${this.translationService.nextString().id}`);
+                return this.sanitizer.bypassSecurityTrustHtml("");
+            }
+        } else return this.sanitizer.bypassSecurityTrustHtml("");
     }
     getNextOriginalHTML(): SafeHtml {
-        if (this.translationService.stringsLeft() > 1)
-            return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.nextString().source)));
-        else return "";
+        if (this.translationService.stringsLeft() > 1) {
+            try {
+                return this.sanitizer.bypassSecurityTrustHtml(toHTML(parseString(this.translationService.nextString().source)));
+            } catch {
+                console.error(`Error parsing original string ${this.translationService.nextString().id}`);
+                return this.sanitizer.bypassSecurityTrustHtml("");
+            }
+        } else return this.sanitizer.bypassSecurityTrustHtml("");
     }
     onPanStart(evt) {
         evt.preventDefault();
@@ -78,7 +102,7 @@ export class CardComponent {
         }, 500);
     }
     onPan(evt) {
-        if (evt.timeStamp < this.lastEnd + 20) {
+        if (evt.timeStamp < this.lastEnd + 500) {
             return;
         }
 
