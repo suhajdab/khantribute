@@ -4,6 +4,7 @@ import { AppService } from "../services/app.service";
 
 @Component({
     selector: "user-dropdown",
+    styleUrls: ["./user.component.css"],
     templateUrl: "./user.component.html"
 })
 export class UserComponent implements OnInit {

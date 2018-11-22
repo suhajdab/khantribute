@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <title>Feedback</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="text-center">Give us feedback on Khantribute</h1>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <p>Thank you for using Khantribute! We'd love to hear your feedback on the app as it is currently and how we can improve. Your contribution is invaluable in helping to bring Khan Academy to the world.</p>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12">
+                <h3>Your feedback</h3>
+            </div>
+        </div>
+        <div class="row">
+            <form class="col-12">
+                <div class="form-group">
+                    <label for="ease-select">How easy was the app to use?</label>
+                    <select class="form-control" name="ease_of_use" id="ease-select">
+                        <option disabled selected hidden></option>
+                        <option>I needed someone to show me how to use the app</option>
+                        <option>I needed someone to show me how to use certain features</option>
+                        <option>It will take me a few uses to master the app</option>
+                        <option>Next time I use the app, I'll know exactly what to do</option>
+                        <option>I had no trouble learning to use the app</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="smooth-select">How smooth was the experience of using the app?</label>
+                    <select class="form-control" name="user_experience" id="smooth-select">
+                        <option disabled selected hidden></option>
+                        <option>The app was buggy and slow</option>
+                        <option>It was okay but a little on the slow side</option>
+                        <option>Pretty good, like most apps</option>
+                        <option>Better than expected</option>
+                        <option>Awesome!</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="reward-select">While using Khantribute, did you feel you were contributing to translations? Was it rewarding for you?</label>
+                    <select class="form-control" name="reward" id="reward-select">
+                        <option disabled selected hidden></option>
+                        <option>No, not really</option>
+                        <option>Maybe a little bit</option>
+                        <option>Yes, but not sure how</option>
+                        <option>Yes, and I understand how my votes are making a difference</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="time-select">When are you most likely to use Khantribute again?</label>
+                    <select class="form-control" name="repeat_likelihood" id="time-select">
+                        <option disabled selected hidden></option>
+                        <option>Whenever I have some spare time</option>
+                        <option>While commuting or in the bathroom</option>
+                        <option>I won't use it again</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="awesome-suggestion">What features or changes do you think Khantribute needs?</label>
+                    <textarea class="form-control" name="suggestion" id="awesome-suggestion"></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="recommend-select">How likely are you to recommend Khantribute to a friend or colleague? (1=Not at all likely, 10=Very likely)</label>
+                    <select class="form-control" name="recommend_likelihood" id="recommend-select">
+                        <option disabled selected hidden></option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="comments">Please use this space to share any additional comments you have about the app</label>
+                    <textarea class="form-control" name="additional_comments" id="comments"></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary" id="submit-btn">Submit Feedback</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        var submit = document.getElementById("submit-btn");
+        
+        submit.addEventListener("click", function(evt) {
+            evt.preventDefault();
+            var data = {},
+                form = document.forms[0];
+            for (var i = 0; i < form.length; ++i) {
+                if (form[i].name.length) {
+                    data[form[i].name] = form[i].value;
+                }
+            }
+            var req = new XMLHttpRequest();
+            req.open("post", "https://khantribute-feedback.firebaseio.com/feedback.json");
+            req.setRequestHeader("Content-Type", "application/json");
+            req.addEventListener("load", function() {
+                window.location = window.location.origin;
+            });
+            req.send(JSON.stringify(data));
+            submit.textContent = "Submitting...";
+            submit.disabled = true;
+        });
+    </script>
+</body>
+</html>

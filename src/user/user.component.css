@@ -1,0 +1,4 @@
+.dropdown-content .disabled:hover {
+    cursor: default;
+    background: rgba(0, 0, 0, 0);
+}
