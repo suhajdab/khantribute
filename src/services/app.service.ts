@@ -79,6 +79,7 @@ export class AppService {
         if (bld === "svse") bld = "sv-SE";
         this.http.get(api.root + api.user + bld + "?client=" + this.getClientID()).subscribe((data: {nickname: string, num_votes: number}) => {
             this.setNickname(data.nickname);
+            this.addUserScore(data.num_votes);
         });
     }
     getUserScore(): number {

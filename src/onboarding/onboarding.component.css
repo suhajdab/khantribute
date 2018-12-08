@@ -1,0 +1,10 @@
+label {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+label span {
+    padding-left: 30px !important;
+    line-height: 20px !important;
+}

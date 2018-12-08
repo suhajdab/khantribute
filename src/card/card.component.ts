@@ -127,6 +127,11 @@ export class CardComponent {
     getScrollX() {
         return this.scrollX;
     }
+    getFeedbackWidth(action) {
+        if (action == "approve" && this.scrollX > 0) return this.scrollX;
+        if (action == "reject" && this.scrollX < 0) return -this.scrollX;
+        return 0;
+    }
     getScrollY() {
         return this.scrollY;
     }

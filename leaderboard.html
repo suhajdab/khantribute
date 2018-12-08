@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+	<link rel="icon" type="image/png" sizes="192x192" href="/old/favicon.ico">
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+	<link rel="stylesheet" href="/old/leaderboard.css">
+
+	<title>Khantribute</title>
+</head>
+
+<body class="mdc-typography">
+	<header class="mdc-toolbar khantribute-toolbar">
+		<div class="mdc-toolbar__row">
+			<section class="mdc-toolbar__section mdc-toolbar__section--align-start">
+				<div class="mdc-menu-anchor khantribute-lang-menu-anchor">
+					<div class="khantribute-lang-menu-button" id="lang-menu-button">
+						<i class="material-icons khantribute-lang-icon">language</i>
+					</div>
+					<div class="mdc-menu" id="lang-menu">
+						<ul class="mdc-menu__items mdc-list" role="menu" id="lang-list" aria-hidden="true">
+							
+						</ul>
+					</div>
+				</div>
+			</section>
+
+			<section class="mdc-toolbar__section">
+				<a class="mdc-toolbar__title" href="..">Khantribute</a>
+			</section>
+
+			<section class="mdc-toolbar__section">
+				<div class="mdc-menu-anchor khantribute-profile-menu-anchor">
+					<div class="khantribute-menu-button" id="menu-button">
+						<span class="name" id="nickname"></span>
+						<span class="score" id="score"></span>
+					</div>
+					<div class="mdc-menu" id="menu">
+						<ul class="mdc-menu__items mdc-list" role="menu" aria-hidden="true">
+							<li class="mdc-list-item" role="menuitem" id="change-nick">
+								Change Nickname
+							</li>
+							<li class="mdc-list-item" role="menuitem">
+								<a href="feedback.html">Give Feedback</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</section>
+		</div>
+    </header>
+
+    <main>
+        <h1>Leaderboard</h1>
+        <div class="leaderboard" id="leaderboard-container"></div>
+    </main>
+
+    <script src="/old/leaderboard.js"></script>
+</body>
+
+</html>
