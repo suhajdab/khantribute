@@ -8,7 +8,7 @@ import { AppService } from "../services/app.service";
     templateUrl: "./user.component.html"
 })
 export class UserComponent implements OnInit {
-    constructor(private appService: AppService) {}
+    constructor(public appService: AppService) {}
     ngOnInit() {
         M.Dropdown.init(document.getElementById("user-dropdown"), {
             alignment: "right",

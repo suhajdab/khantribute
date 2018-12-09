@@ -26,12 +26,13 @@ enum Action {
     ]
 })
 export class CardComponent {
-    private panType: PanType = PanType.NONE;
+    public panType: PanType = PanType.NONE;
     private scrollX: number = 0;
     private scrollY: number = 0;
     private lastEnd: number = -Infinity;
-    private action: Action = Action.NONE;
-    constructor(private translationService: TranslationService, private sanitizer: DomSanitizer, private changeDetector: ChangeDetectorRef) {
+    action: Action = Action.NONE;
+
+    constructor(public translationService: TranslationService, private sanitizer: DomSanitizer, private changeDetector: ChangeDetectorRef) {
         this.translationService.onSubmit(this.handleSubmit.bind(this));
     }
     getTranslationHTML(): SafeHtml {
