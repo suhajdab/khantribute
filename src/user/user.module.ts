@@ -5,7 +5,7 @@ import { UserComponent } from "./user.component";
 
 @NgModule({
     declarations: [
-        UserComponent
+        //UserComponent //DISABLED due to npm run dist error message.
     ],
     imports: [
         BrowserModule

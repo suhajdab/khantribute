@@ -4,7 +4,7 @@ import { LangComponent } from "./languages.component";
 
 @NgModule({
     declarations: [
-        LangComponent
+        //LangComponent  //DISABLED due to npm run dist error message.
     ],
     imports: [
         BrowserModule

@@ -5,7 +5,7 @@ import { ControlsComponent } from "./controls.component";
 
 @NgModule({
     declarations: [
-        ControlsComponent
+        //ControlsComponent //DISABLED due to npm run dist error message.
     ],
     imports: [
         BrowserModule
