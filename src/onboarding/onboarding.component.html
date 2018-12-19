@@ -19,7 +19,8 @@
     </div>
     <div class="modal-footer">
             <label>
-                <input type="checkbox" (click)="hideModal=$event.target.checked"/>
+                <!-- For some reason the event has to return true for this to work -->
+                <input type="checkbox" class="filled-in" (click)="hideModal=$event.target.checked;true"/>
                 <span>Don't show this again</span>
             </label>
             <a href="javascript: void(0);" class="modal-close waves-effect btn-flat">Got it!</a>

@@ -1,5 +1,12 @@
+.card-wrapper {
+    position: relative;
+    overflow: visible;
+    margin-top: 16px;
+    min-height: 100vh;
+}
+
 .card {
-    padding-bottom: 1.5em;
+    margin-bottom: 3em;
     user-select: none;
 }
 
@@ -28,24 +35,43 @@
     transition: left 0.5s, top 0.5s;
 }
 
+.translation-text::before {
+    content: "Translation";
+}
+
+.original-text::before {
+    content: "Original"
+}
+
+.translation-text::before, .original-text::before { 
+    font-size: 1.25em;
+    font-weight: bold;
+    display: block;
+    width: 100%;
+}
+
 .translation-card {
     text-align: left;
     padding: 0 2.25em;
     position: relative;
-    line-height: 9em;
+    /* line-height: 9em;
     background-image: repeating-linear-gradient(180deg, #ffffff 0, #ffffff 4.5em, #e0e0e0 4.5em, #e0e0e0 9em);
     background-repeat: repeat-y;
     background-position-y: 2.25em;
-    padding-bottom: 11.25em;
+    padding-bottom: 11.25em; */
 }
 
-.translation-card > span:last-child {
+.card-content {
+    line-height: 2em;
+}
+
+/* .translation-card > span:last-child {
     position: absolute;
     top: 4.5em;
     left: 0;
     right: 0;
     padding: 0 2.25em;
-}
+} */
 
 .last-translation-card {
     position: absolute;

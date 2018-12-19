@@ -2,6 +2,7 @@
 .khantribute-controls {
     right: 0;
     left: 0;
+    padding-top: 0;
     position: fixed;
     bottom: 1em;
     display: flex;

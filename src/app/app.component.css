@@ -2,10 +2,3 @@
     user-select: none;
     cursor: default;
 }
-
-.card-wrapper {
-    position: relative;
-    overflow: visible;
-    margin-top: 16px;
-    min-height: 100vh;
-}

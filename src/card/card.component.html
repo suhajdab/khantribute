@@ -1,51 +1,51 @@
 <div
-    class="next-translation-card-container container"
-    *ngIf="translationService.stringsLeft() > 0"
-    [class.on-top]="action != 0 && action != 2">
-    <div class="row">
-        <div class="col s12 m8 offset-m2">
-            <div class="card">
-                <div class="translation-card">
-                    <b>Translation</b>&nbsp;<span [innerHTML]="getNextTranslationHTML()"></span>
-                    <span><b>Original</b>&nbsp;<span [innerHTML]="getNextOriginalHTML()"></span></span>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="overlap-container">
-    <div class="container translation-card-container"
-        (panend)="onPanEnd($event)"
-        (pancancel)="onPanEnd($event)"
-        (panleft)="onPan($event)"
-        (panright)="onPan($event)"
-        (panup)="onPan($event)"
-        (pandown)="onPan($event)"
-        [style.left.px]="getScrollX()"
-        [class.approved]="action == 1"
-        [class.rejected]="action == -1"
-        [class.skipped]="action == 3"
-        [class.reset]="action != 2 && panType == 0">
+    class="card-wrapper"
+    (touchstart)="onTouchStart($event)"
+    (touchmove)="onTouchMove($event)"
+    (touchend)="onTouchEnd($event)">
+    <div
+        class="next-translation-card-container container"
+        *ngIf="translationService.stringsLeft() > 0"
+        [class.on-top]="action != 0 && action != 2">
         <div class="row">
             <div class="col s12 m8 offset-m2">
                 <div class="card">
-                    <div class="translation-card" *ngIf="translationService.stringsLeft() > 0; else congrats">
-                        <b>Translation</b>&nbsp;<span [innerHTML]="getTranslationHTML()"></span>
-                        <span><b>Original</b>&nbsp;<span [innerHTML]="getOriginalHTML()"></span></span>
+                    <div class="translation-card">
+                        <p class="card-content translation-text" [innerHTML]="getNextTranslationHTML()"></p>
+                        <p class="card-content original-text" [innerHTML]="getNextOriginalHTML()"></p>
                     </div>
-                    <ng-template #congrats>
-                        <div class="card-content">
-                            <p>Congratulations! There are no strings left to translate right now. We'll probably have some later, but you can relax for now.</p>
-                        </div>
-                    </ng-template>
                 </div>
             </div>
         </div>
     </div>
+    <div class="overlap-container">
+        <div class="container translation-card-container"
+            [style.left.px]="getScrollX()"
+            [class.approved]="action == 1"
+            [class.rejected]="action == -1"
+            [class.skipped]="action == 3"
+            [class.reset]="action != 2 && panType == 0">
+            <div class="row">
+                <div class="col s12 m8 offset-m2">
+                    <div class="card">
+                        <div class="translation-card" *ngIf="translationService.stringsLeft() > 0; else congrats">
+                            <p class="card-content translation-text" [innerHTML]="getTranslationHTML()"></p>
+                            <p class="card-content original-text" [innerHTML]="getOriginalHTML()"></p>
+                        </div>
+                        <ng-template #congrats>
+                            <div class="card-content">
+                                <p>Congratulations! There are no strings left to translate right now. We'll probably have some later, but you can relax for now.</p>
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div
+        class="feedback-gradient feedback-gradient-reject"
+        [style.width.px]="getFeedbackWidth('reject')"></div>
+    <div
+        class="feedback-gradient feedback-gradient-approve"
+        [style.width.px]="getFeedbackWidth('approve')"></div>
 </div>
-<div
-    class="feedback-gradient feedback-gradient-reject"
-    [style.width.px]="getFeedbackWidth('reject')"></div>
-<div
-    class="feedback-gradient feedback-gradient-approve"
-    [style.width.px]="getFeedbackWidth('approve')"></div>

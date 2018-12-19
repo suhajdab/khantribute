@@ -30,6 +30,7 @@ export class CardComponent {
     private scrollX: number = 0;
     private scrollY: number = 0;
     private lastEnd: number = -Infinity;
+    private startEvt: TouchEvent;
     private action: Action = Action.NONE;
     constructor(private translationService: TranslationService, private sanitizer: DomSanitizer, private changeDetector: ChangeDetectorRef) {
         this.translationService.onSubmit(this.handleSubmit.bind(this));
@@ -78,22 +79,6 @@ export class CardComponent {
             }
         } else return this.sanitizer.bypassSecurityTrustHtml("");
     }
-    onPanStart(evt) {
-        evt.preventDefault();
-        this.panType = PanType.NONE;
-        this.scrollX = 0;
-    }
-    onPanEnd(evt) {
-        evt.preventDefault();
-        if (this.scrollX <= -window.innerWidth / 4) {
-            this.translationService.rejectString();
-        } else if (this.scrollX >= window.innerWidth / 4) {
-            this.translationService.approveString();
-        }
-        this.panType = PanType.NONE;
-        this.scrollX = 0;
-        this.lastEnd = evt.timeStamp;
-    }
     handleSubmit(score) {
         if (score > 0) this.action = Action.APPROVE;
         else if (score < 0) this.action = Action.REJECT;
@@ -104,13 +89,22 @@ export class CardComponent {
             setTimeout(() => this.action = Action.NONE, 500);
         }, 500);
     }
-    onPan(evt) {
-        if (evt.timeStamp < this.lastEnd + 500) {
-            return;
-        }
+    onTouchStart(evt: TouchEvent) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        this.panType = PanType.NONE;
+        this.startEvt = evt;
+        this.scrollX = 0;
+    }
+    onTouchMove(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        if (evt.timeStamp < this.lastEnd + 500) return;
 
-        if (this.panType === PanType.NONE) {
-            if (Math.abs(evt.deltaX) < Math.abs(evt.deltaY)) {
+        let {touches: [touch]} = evt;
+
+        if (this.panType === PanType.NONE && evt.timeStamp > this.startEvt.timeStamp + 150) {
+            if (Math.abs(this.startEvt.touches[0].clientX - touch.clientX) < Math.abs(this.startEvt.touches[0].clientY - touch.clientY)) {
                 this.panType = PanType.VERTICAL;
             } else {
                 this.panType = PanType.HORIZONTAL;
@@ -118,11 +112,23 @@ export class CardComponent {
         }
         
         if (this.panType === PanType.VERTICAL) {
-            // TODO This is awful but it was the only way I could think of
-            window.scrollBy(0, -evt.velocityY * 70);
+            document.children[0].scrollTop = window.scrollY - (touch.clientY - this.startEvt.touches[0].clientY) * 0.25;
         } else if (this.panType === PanType.HORIZONTAL) {
-            this.scrollX = evt.deltaX;
+            this.scrollX = touch.clientX - this.startEvt.touches[0].clientX;
         }
+    }
+    onTouchEnd(evt) {
+        evt.stopPropagation();
+        evt.preventDefault();
+        if (this.scrollX <= -window.innerWidth / 4) {
+            this.translationService.rejectString();
+        } else if (this.scrollX >= window.innerWidth / 4) {
+            this.translationService.approveString();
+        }
+
+        if (this.panType == PanType.HORIZONTAL) this.lastEnd = evt.timeStamp;
+        this.panType = PanType.NONE;
+        this.scrollX = 0;
     }
     getScrollX() {
         return this.scrollX;
