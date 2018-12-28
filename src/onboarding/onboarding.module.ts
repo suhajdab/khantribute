@@ -5,7 +5,7 @@ import M from "materialize-css";
 
 @NgModule({
     declarations: [
-        OnboardingComponent
+        //OnboardingComponent  //DISABLED due to npm run dist error message.
     ],
     imports: [
         BrowserModule
