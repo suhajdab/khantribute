@@ -34,6 +34,7 @@ export class CardComponent {
     private action: Action = Action.NONE;
     constructor(private translationService: TranslationService, private sanitizer: DomSanitizer, private changeDetector: ChangeDetectorRef) {
         this.translationService.onSubmit(this.handleSubmit.bind(this));
+        document.children[0].scrollTop = 0;
     }
     getTranslationHTML(): SafeHtml {
         if (this.translationService.stringsLeft() > 0) {
@@ -86,6 +87,7 @@ export class CardComponent {
         setTimeout(() => {
             this.action = Action.RESET;
             this.translationService.advance();
+            document.children[0].scrollTop = 0;
             setTimeout(() => this.action = Action.NONE, 500);
         }, 500);
     }
