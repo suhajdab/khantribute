@@ -1,31 +1,16 @@
 export let languages = [ 
     {
-        "bld": "svse",
-        "name": "Swedish"
+        "bld" : "ar",
+        "name" : "Arabic"
     }, {
-        "bld" : "es",
-        "name" : "Spanish"
+        "bld" : "hy",
+        "name" : "Armenian"
     }, {
-        "bld" : "pt",
-        "name" : "Portuguese (Brazilian)"
+        "bld" : "bn",
+        "name" : "Bengali"
     }, {
-        "bld" : "pt-pt",
-        "name" : "Portuguese (European)"
-    }, {
-        "bld" : "fr",
-        "name" : "French"
-    }, {
-        "bld" : "tr",
-        "name" : "Turkish"
-    }, {
-        "bld" : "nb",
-        "name" : "Norwegian Bokmål"
-    }, {
-        "bld" : "hi",
-        "name" : "Hindi"
-    }, {
-        "bld" : "id",
-        "name" : "Indonesian"
+        "bld" : "bg",
+        "name" : "Bulgarian"
     }, {
         "bld" : "cs",
         "name" : "Czech"
@@ -33,50 +18,29 @@ export let languages = [
         "bld" : "da",
         "name" : "Danish"
     }, {
-        "bld" : "de",
-        "name" : "German"
-    }, {
-        "bld" : "it",
-        "name" : "Italian"
-    }, {
         "bld" : "nl",
         "name" : "Dutch"
     }, {
-        "bld" : "pl",
-        "name" : "Polish"
+        "bld" : "fr",
+        "name" : "French"
+    }, {
+        "bld" : "ka",
+        "name" : "Georgian"
+    }, {
+        "bld" : "de",
+        "name" : "German"
     }, {
         "bld" : "el",
         "name" : "Greek"
     }, {
-        "bld" : "bg",
-        "name" : "Bulgarian"
+        "bld" : "hi",
+        "name" : "Hindi"
     }, {
-        "bld" : "mn",
-        "name" : "Mongolian"
-    }, {
-        "bld" : "ru",
-        "name" : "Russian"
-    }, {
-        "bld" : "sr",
-        "name" : "Serbian"
-    }, {
-        "bld" : "hy",
-        "name" : "Armenian"
-    }, {
-        "bld" : "ur",
-        "name" : "Urdu"
-    }, {
-        "bld" : "ar",
-        "name" : "Arabic"
-    }, {
-        "bld" : "bn",
-        "name" : "Bengali"
-    }, {
-        "bld" : "th",
-        "name" : "Thai"
-    }, {
-        "bld" : "zh-hans",
-        "name" : "Simplified Chinese"
+        "bld" : "id",
+        "name" : "Indonesian"
+    },  {
+        "bld" : "it",
+        "name" : "Italian"
     }, {
         "bld" : "ja",
         "name" : "Japanese"
@@ -84,7 +48,43 @@ export let languages = [
         "bld" : "ko",
         "name" : "Korean"
     }, {
-        "bld" : "ka",
-        "name" : "Georgian"
+        "bld" : "mn",
+        "name" : "Mongolian"
+    }, {
+        "bld" : "nb",
+        "name" : "Norwegian Bokmål"
+    }, {
+        "bld" : "pl",
+        "name" : "Polish"
+    }, {
+        "bld" : "pt",
+        "name" : "Portuguese (Brazilian)"
+    }, {
+        "bld" : "pt-pt",
+        "name" : "Portuguese (European)"
+    }, {
+        "bld" : "ru",
+        "name" : "Russian"
+    }, {
+        "bld" : "sr",
+        "name" : "Serbian"
+    }, {
+        "bld" : "zh-hans",
+        "name" : "Simplified Chinese"
+    }, {
+        "bld" : "es",
+        "name" : "Spanish"
+    }, {
+        "bld": "svse",
+        "name": "Swedish"
+    }, {
+        "bld" : "th",
+        "name" : "Thai"
+    }, {
+        "bld" : "tr",
+        "name" : "Turkish"
+    }, {
+        "bld" : "ur",
+        "name" : "Urdu"
     }
 ];
